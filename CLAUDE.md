@@ -8,8 +8,8 @@ sections below with how the repository really works as it takes shape.
 
 ## What is decided
 
-- **This repository is the source.** The npm package and the design system on Claude Design are copies made from it.
-  Nothing is edited in a copy and carried back by hand: copies drift
+- **This repository is the source.** The npm package and the design system on Claude Design are copies made from it,
+  the second with the `design-publish` skill. Nothing is edited in a copy and carried back by hand: copies drift
 - **Two consumers, no more.** The blog (yamat47/blog) and the portfolio site depend on a version of the package. Demo
   sites and applications keep their own looks
 - **Components are React TSX that render to static HTML.** A site renders them at build time, so a component must
@@ -52,6 +52,16 @@ the light surface.
   or Google Fonts, which would make every visit a request to Google
 - The toolchain, and where components are looked at while they are developed
 - Which components come first
+
+## Where the conventions live
+
+- Follow the `writing-conventions` skill for comments, commits, and pull requests, the `typescript-idioms` skill for
+  TypeScript, and the `react-patterns` skill for components
+- Open pull requests with the `create-pr` skill
+- Check Dependabot pull requests with the `review-dependency-bump` skill, and skill update pull requests with the
+  `review-skill-update` skill
+- The skills in `.claude/skills/` are installed from yamat47/github-toolkit. Do not edit them here. Rules specific to
+  this repository live in this file; when they conflict with a skill, this file wins
 
 ## Language
 

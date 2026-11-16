@@ -1,0 +1,19 @@
+name: pylon
+
+services:
+  # Runs Makefile tasks (docker compose run --rm)
+  workspace:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: pylon-dev
+    volumes:
+      - ..:/workspace
+      # node_modules is not shared with the host. The native binary of Biome differs between darwin
+      # and linux, and heavy file I/O across a bind mount is slow
+      - node_modules:/workspace/node_modules
+      - pnpm-store:/home/node/.local/share/pnpm/store
+
+volumes:
+  node_modules:
+  pnpm-store:

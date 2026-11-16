@@ -1,0 +1,25 @@
+{
+  "name": "@yamat47/pylon",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Design system for blog.yamat47.me and my portfolio: design tokens and React components",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamat47/pylon.git"
+  },
+  "type": "module",
+  "scripts": {
+    "tokens": "node scripts/tokens.ts",
+    "typecheck": "tsc",
+    "lint": "biome check --error-on-warnings .",
+    "lint:fix": "biome check --write .",
+    "test": "node --test \"scripts/**/*.test.ts\"",
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.7",
+    "@types/node": "^26.6.6",
+    "typescript": "~6.0.3"
+  },
+  "packageManager": "pnpm@11.8.0"
+}

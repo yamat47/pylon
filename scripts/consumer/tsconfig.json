@@ -1,0 +1,14 @@
+{
+  // A site's point of view on the built package: it knows the package by its name and nothing of
+  // this repository's sources. Run after `build`, by `test:package`.
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "NodeNext",
+    "strict": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "skipLibCheck": false,
+    "types": []
+  },
+  "include": ["site.tsx"]
+}

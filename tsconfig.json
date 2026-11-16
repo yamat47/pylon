@@ -21,5 +21,7 @@
     // imports that is not code: a stylesheet, a guideline as text (`./Page.md?raw`).
     "types": ["node", "vite/client"]
   },
-  "include": ["scripts", "src", ".storybook"]
+  "include": ["scripts", "src", ".storybook"],
+  // Compiled on its own, after a build, as a site that knows only the built package.
+  "exclude": ["scripts/consumer"]
 }

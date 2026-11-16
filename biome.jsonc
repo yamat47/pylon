@@ -7,7 +7,15 @@
   },
   "files": {
     // src/tokens.css is generated (scripts/tokens.ts), so its shape is the generator's.
-    "includes": ["scripts/**", "src/**", "system/**", "*.json", "*.jsonc", "!src/tokens.css"]
+    "includes": [
+      "scripts/**",
+      "src/**",
+      "system/**",
+      ".storybook/**",
+      "*.json",
+      "*.jsonc",
+      "!src/tokens.css"
+    ]
   },
   "formatter": {
     "enabled": true,

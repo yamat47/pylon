@@ -10,16 +10,29 @@
   "type": "module",
   "scripts": {
     "tokens": "node scripts/tokens.ts",
+    "storybook": "storybook dev --port 6006 --host 0.0.0.0 --no-open --ci",
+    "storybook:build": "storybook build --output-dir dist/storybook",
     "typecheck": "tsc",
     "lint": "biome check --error-on-warnings .",
     "lint:fix": "biome check --write .",
-    "test": "node --test \"scripts/**/*.test.ts\"",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run test"
+    "test": "node --test \"scripts/**/*.test.ts\" \"src/**/*.test.ts\"",
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run storybook:build"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.7",
+    "@storybook/addon-docs": "^10.6.5",
+    "@storybook/react-vite": "^10.6.5",
     "@types/node": "^26.6.6",
-    "typescript": "~7.0.2"
+    "@types/react": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "storybook": "^10.6.5",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5"
   },
   "packageManager": "pnpm@11.8.0"
 }

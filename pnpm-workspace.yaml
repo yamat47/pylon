@@ -1,0 +1,4 @@
+# pnpm refuses to run dependency install scripts unless they are allowed here.
+# esbuild, which Storybook builds with, only verifies that its platform binary is in place.
+allowBuilds:
+  esbuild: true

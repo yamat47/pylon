@@ -3,16 +3,21 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-So far it holds the tokens and the toolchain. Components, the release to npm and the copy on Claude Design are still
-to come; "What is decided" and "Not decided yet" below say where they are headed.
+So far it holds the tokens, the toolchain and the components of the blog's top page. The components of a post, the
+fonts, the release to npm and the copy on Claude Design are still to come; "What is decided" and "Not decided yet"
+below say where they are headed.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, `sample`, the empty `shadow`) |
+| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, the empty `shadow`). A style's `sample` is what the stories of `Text` show |
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
-| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), and the contrast calculation the tests use |
+| `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
+| `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
+| `src/fixtures.ts` | What the stories show: the blog's own names, links and posts |
+| `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
+| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`) and the contrast calculation |
 | `docker/` | Development image and compose |
 | `Makefile` | Entry point for development commands |
 
@@ -25,7 +30,8 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 
 | Goal | Command |
 |---|---|
-| Typecheck, lint and test in one go | `make check` (CI runs the same, plus zizmor on the workflows) |
+| Typecheck, lint, test and build Storybook in one go | `make check` (CI runs the same, plus zizmor on the workflows) |
+| Look at the components | `make storybook` (http://localhost:6006) / `make logs` / `make down` |
 | Type check / lint / auto-fix / test | `make typecheck` / `make lint` / `make fix` / `make test` |
 | Write `src/tokens.css` after editing the tokens | `make tokens` |
 | Add or update dependencies | `make pnpm ARGS="add -D <pkg>"` (the lockfile is also updated on the host) |
@@ -40,6 +46,27 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 - **A text style is used whole.** A component puts the style's class on an element (`text-heading`); a stylesheet
   that cannot, such as the one for a post's rendered Markdown, sets `font: var(--text-heading)`. Neither writes a
   size, a weight or a line height
+- **Something becomes a component when it appears in two places, or when a site would otherwise write CSS or a
+  class name to get it.** `Text` and `LinkList` are small for that reason; a box, a stack or a rule is not a
+  component. A larger component is built from the smaller ones (`SiteHeader` from `Text` and `LinkList`,
+  `PostIndex` from `IndexList`), and the general form comes before the one for posts, because the portfolio will
+  list other things the same way. A component may also exist only to hold a decision of the look: `PostIndex` is
+  one line, and keeps how a post's day is written (`02.13`) out of the sites
+- **A site uses components, never the classes.** `py-*` and `text-*` are how the components and the stylesheet talk
+  to each other. A page that needs a class to look right is missing a component. Inside the package, a component
+  uses `Text` where the element needs nothing else, and writes the classes itself where it does (a `time`, a cell
+  of a grid)
+- **A component is three files and an export.** `<Name>.tsx`, a guideline `<Name>.md` (what it is, its props, a do
+  and a don't) and `<Name>.stories.tsx`, exported from `src/index.ts`. A test fails when one is missing
+- **A component renders to static HTML.** No hooks, no event handlers, no state: a site renders it at build time and
+  ships no JavaScript for it. Nothing checks this yet. What a component works out goes in a `.ts` file beside it
+  (`post-index.ts` for `PostIndex`), where a test can reach it: Node does not read `.tsx`
+- **A component's CSS is in `src/components.css`, under classes that start with `py-`.** Colors, text styles, spacing
+  and line weights are tokens. A number written there is a component's own measure (the width of a column) or a
+  length relative to the text, with a comment saying which
+- **A story is args only.** No `render` and no decorators of its own, so that the same story can be drawn somewhere
+  other than Storybook (the previews on Claude Design, to come). A story that needs other components passes them as
+  args. Stories show Japanese text from `src/fixtures.ts`, because that is what the sites carry
 - **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
   read to choose it, so a token without a use is not added (a test refuses an empty one)
 - **Keep dependencies few.** Everything here is also upkeep for the sites that install the package
@@ -54,8 +81,9 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   sites and applications keep their own looks
 - **Components are React TSX that render to static HTML.** A site renders them at build time, so a component must
   work without client-side JavaScript. The same components go into the bundle published to Claude Design
-- **Design values live in the tokens only.** A component reads a token; it never holds a color, size, weight or font
-  as a literal. The blog already keeps its values in one file (`src/styles/tokens.css`) for these tokens to replace
+- **Design values live in the tokens only.** A component reads a token; it never holds a color, a text size, a
+  weight or a font as a literal. The blog already keeps its values in one file (`src/styles/tokens.css`) for these
+  tokens to replace
 
 ## The look
 
@@ -80,8 +108,10 @@ darker one for text on the light surface, where the orange is too pale to read.
 - How the fonts reach a reader. Noto Sans JP is large; the options are files served by each site from this package,
   or Google Fonts, which would make every visit a request to Google. Until then the font stack ends in the system's
   gothic
-- Which components come first. They will be looked at in Storybook while they are developed, which is not set up yet
-- The colors of highlighted code
+- What a post is made of: its title and date, the rendered Markdown, a link card. The top page's components exist;
+  these come next
+- The colors of highlighted code, and which element carries the `code` text style: `Text` offers the style and none of
+  the elements code is written in. It is settled with the components of a post, where code first appears
 
 ## Where the conventions live
 

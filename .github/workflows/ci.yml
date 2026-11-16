@@ -46,6 +46,10 @@ jobs:
       - name: Test (node --test)
         run: pnpm run test
 
+      # No story is rendered here: the build only shows that every component and story compiles.
+      - name: Build Storybook
+        run: pnpm run storybook:build
+
   # Checks how the workflows are written. zizmor finds missing permissions, script injection,
   # actions not pinned by SHA, and so on.
   lint-workflows:

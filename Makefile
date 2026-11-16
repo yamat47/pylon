@@ -30,6 +30,21 @@ setup: ## Build the image and install dependencies (first time, and when the Doc
 install: ## pnpm install (when package.json / lockfile change)
 	$(PNPM) install
 
+.PHONY: storybook
+storybook: ## Start Storybook in the background (http://localhost:6006)
+	$(host_only)
+	$(COMPOSE) up -d --wait storybook
+
+.PHONY: down
+down: ## Stop the containers
+	$(host_only)
+	$(COMPOSE) down
+
+.PHONY: logs
+logs: ## Follow Storybook's logs
+	$(host_only)
+	$(COMPOSE) logs -f storybook
+
 .PHONY: tokens
 tokens: ## Write src/tokens.css from system/tokens.json (after editing the tokens)
 	$(PNPM) run tokens
@@ -51,7 +66,7 @@ test: ## Run the unit tests (node --test)
 	$(PNPM) run test
 
 .PHONY: check
-check: ## Typecheck, lint and test (what CI runs, minus zizmor)
+check: ## Typecheck, lint, test and build Storybook (what CI runs, minus zizmor)
 	$(PNPM) run check
 
 .PHONY: pnpm

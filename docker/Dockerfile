@@ -11,6 +11,10 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends git make ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
+# The repository is mounted from the host, where another user owns it, and git refuses to read
+# such a repository unless told it is safe. Storybook asks git which files have changed.
+RUN git config --system --add safe.directory /workspace
+
 # A named volume inherits the owner of the image-side directory on its first mount.
 # Unless created as node-owned first, it becomes root-owned and the node user cannot install
 RUN mkdir -p /workspace/node_modules /home/node/.local/share/pnpm/store \

@@ -11,7 +11,7 @@ below say where they are headed.
 
 | Path | Contents |
 |---|---|
-| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, `sample`, the empty `shadow`) |
+| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, the empty `shadow`). A style's `sample` is what the stories of `Text` show |
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
@@ -46,6 +46,16 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 - **A text style is used whole.** A component puts the style's class on an element (`text-heading`); a stylesheet
   that cannot, such as the one for a post's rendered Markdown, sets `font: var(--text-heading)`. Neither writes a
   size, a weight or a line height
+- **Something becomes a component when it appears in two places, or when a site would otherwise write CSS or a
+  class name to get it.** `Text` and `LinkList` are small for that reason; a box, a stack or a rule is not a
+  component. A larger component is built from the smaller ones (`SiteHeader` from `Text` and `LinkList`,
+  `PostIndex` from `IndexList`), and the general form comes before the one for posts, because the portfolio will
+  list other things the same way. A component may also exist only to hold a decision of the look: `PostIndex` is
+  one line, and keeps how a post's day is written (`02.13`) out of the sites
+- **A site uses components, never the classes.** `py-*` and `text-*` are how the components and the stylesheet talk
+  to each other. A page that needs a class to look right is missing a component. Inside the package, a component
+  uses `Text` where the element needs nothing else, and writes the classes itself where it does (a `time`, a cell
+  of a grid)
 - **A component is three files and an export.** `<Name>.tsx`, a guideline `<Name>.md` (what it is, its props, a do
   and a don't) and `<Name>.stories.tsx`, exported from `src/index.ts`. A test fails when one is missing
 - **A component renders to static HTML.** No hooks, no event handlers, no state: a site renders it at build time and
@@ -100,7 +110,8 @@ darker one for text on the light surface, where the orange is too pale to read.
   gothic
 - What a post is made of: its title and date, the rendered Markdown, a link card. The top page's components exist;
   these come next
-- The colors of highlighted code
+- The colors of highlighted code, and which element carries the `code` text style: `Text` offers the style and none of
+  the elements code is written in. It is settled with the components of a post, where code first appears
 
 ## Where the conventions live
 

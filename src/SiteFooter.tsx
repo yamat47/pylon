@@ -1,3 +1,4 @@
+import { LinkList } from "./LinkList.tsx";
 import type { LinkItem } from "./types.ts";
 
 type SiteFooterProps = {
@@ -6,14 +7,8 @@ type SiteFooterProps = {
 
 export function SiteFooter({ links }: SiteFooterProps) {
   return (
-    <footer className="py-site-footer text-small">
-      <ul className="py-link-list">
-        {links.map((link) => (
-          <li key={link.href}>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))}
-      </ul>
+    <footer className="py-site-footer">
+      <LinkList links={links} />
     </footer>
   );
 }

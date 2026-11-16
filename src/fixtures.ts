@@ -15,8 +15,6 @@ export const footerLinks: readonly LinkItem[] = [
   { label: "プライバシーポリシー", href: "/privacy" },
 ];
 
-const splittingStories = "開発のストーリー分割・タスク分割をするときに考えていること";
-
 export const posts: readonly IndexedPost[] = [
   { date: "2026-01-01", href: "/entry/2026/01/01/130022", title: "2025年を振り返ってみる" },
   {
@@ -38,7 +36,7 @@ export const posts: readonly IndexedPost[] = [
   {
     date: "2025-02-13",
     href: "/entry/2025/02/13/192603",
-    title: splittingStories,
+    title: "開発のストーリー分割・タスク分割をするときに考えていること",
   },
   { date: "2024-12-31", href: "/entry/2024/12/31/174853", title: "2024年を振り返ってみる" },
   {
@@ -49,8 +47,7 @@ export const posts: readonly IndexedPost[] = [
   { date: "2022-11-11", href: "/entry/2022/11/11/204028", title: "クラッソーネを退職しました" },
 ];
 
-// One post, as far as a story needs it.
+// How one post opens.
 export const post = {
-  title: splittingStories,
   lead: "たまたまかもですが 1on1 で二人連続でこんな話になったので。需要があるかもと思い、自分が普段考えていることをメモしてみます。",
 };

@@ -34,12 +34,21 @@ a:hover {
 }
 
 /* A link known to be one by where it is, such as a name or a title: the accent comes under the pointer. */
-.py-plain-link,
-.py-post-index-title {
+.py-plain-link {
   text-decoration-line: none;
 }
 
-/* A short row of links that wraps. */
+/* What stands beside the text rather than being it: a date, a label, a caption. */
+.py-muted {
+  color: var(--color-ink-muted);
+}
+
+/* Text: a text style on an element. The space around it is for whatever lays it out. */
+.py-text {
+  margin: 0;
+}
+
+/* LinkList: a short row of links that wraps. */
 .py-link-list {
   display: flex;
   flex-wrap: wrap;
@@ -81,45 +90,35 @@ a:hover {
   border-block-end: var(--stroke-hairline) solid var(--color-border);
 }
 
-.py-site-header-name,
-.py-site-header-description {
-  margin: 0;
-}
-
-.py-site-header-description {
-  color: var(--color-ink-muted);
-}
-
 /* SiteFooter: a rule, then the links every page carries. */
 .py-site-footer {
   padding-block: var(--space-6) var(--space-14);
   border-block-start: var(--stroke-hairline) solid var(--color-border);
 }
 
-/* PostIndex: a year at the start of each group, its posts beside it, a rule between groups. */
-.py-post-index-year {
+/* IndexList: a label at the start of each group, its rows beside it, a rule between groups. */
+.py-index-list-group {
   display: flex;
   flex-wrap: wrap;
-  /* The year sits on the line of its first post's title. */
+  /* The label sits on the line of its first row's title. */
   align-items: baseline;
   gap: var(--space-2) var(--space-10);
   padding-block: var(--space-8);
 }
 
-.py-post-index-year + .py-post-index-year {
+.py-index-list-group + .py-index-list-group {
   border-block-start: var(--stroke-hairline) solid var(--color-border);
 }
 
-.py-post-index-label {
-  /* The column of years: room for four figures and the space the index leaves empty beside them. */
+.py-index-list-label {
+  /* The column of labels: room for a year and the space the list leaves empty beside it. */
   flex: 0 0 7.5rem;
   margin: 0;
-  color: var(--color-ink-muted);
 }
 
-.py-post-index-posts {
+.py-index-list-items {
   display: flex;
-  /* Takes the rest of the row, and a row of its own under the year where less than 26rem is left. */
+  /* Takes the rest of the row, and a row of its own under the label where less than 26rem is left. */
   flex: 999 1 26rem;
   flex-direction: column;
   gap: var(--space-3);
@@ -128,19 +127,15 @@ a:hover {
   list-style: none;
 }
 
-.py-post-index-post {
+.py-index-list-item {
   display: grid;
-  /* The column of days: five characters (02.13) at the size of a figure. */
+  /* The column of figures: five characters (02.13) at the size of a figure. */
   grid-template-columns: 3.5rem minmax(0, 1fr);
   align-items: baseline;
   column-gap: var(--space-4);
 }
 
-.py-post-index-title {
+.py-index-list-title {
   /* Where the browser can, a Japanese title breaks between phrases and not inside a word. */
   word-break: auto-phrase;
-}
-
-.py-post-index-day {
-  color: var(--color-ink-muted);
 }

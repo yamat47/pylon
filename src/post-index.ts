@@ -1,4 +1,5 @@
-// What PostIndex works out from its posts before drawing anything.
+// What PostIndex works out from its posts: the groups an IndexList draws.
+import type { IndexGroup } from "./types.ts";
 
 export type IndexedPost = {
   readonly title: string;
@@ -8,10 +9,19 @@ export type IndexedPost = {
   readonly date: string;
 };
 
-// The posts of each year, years and posts in the order they were given.
-export function byYear(posts: readonly IndexedPost[]): [year: string, posts: IndexedPost[]][] {
-  return [...Map.groupBy(posts, (post) => post.date.slice(0, 4))];
-}
-
 // 2025-02-13 as 02.13: the year stands beside the group.
-export const day = (date: string) => `${date.slice(5, 7)}.${date.slice(8, 10)}`;
+const day = (date: string) => `${date.slice(5, 7)}.${date.slice(8, 10)}`;
+
+// The posts of each year under that year, years and posts in the order they were given.
+export function byYear(posts: readonly IndexedPost[]): IndexGroup[] {
+  const years = Map.groupBy(posts, (post) => post.date.slice(0, 4));
+  return [...years].map(([year, ofYear]) => ({
+    label: year,
+    items: ofYear.map((post) => ({
+      title: post.title,
+      href: post.href,
+      figure: day(post.date),
+      dateTime: post.date,
+    })),
+  }));
+}

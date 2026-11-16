@@ -13,7 +13,5 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// What an IndexList looks like with fewer groups or other figures is in its own stories.
 export const Default: Story = {};
-export const OneYear: Story = {
-  args: { posts: posts.filter((post) => post.date.startsWith("2025")) },
-};

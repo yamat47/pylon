@@ -1,3 +1,5 @@
+import { LinkList } from "./LinkList.tsx";
+import { Text } from "./Text.tsx";
 import type { LinkItem } from "./types.ts";
 
 type SiteHeaderProps = {
@@ -19,28 +21,23 @@ export function SiteHeader({
   heading = false,
   nav = [],
 }: SiteHeaderProps) {
-  const Name = heading ? "h1" : "p";
   return (
     <header className="py-site-header">
       <div>
-        <Name className="py-site-header-name text-site">
+        <Text variant="site" as={heading ? "h1" : "p"}>
           <a className="py-plain-link" href={href}>
             {name}
           </a>
-        </Name>
+        </Text>
         {description === undefined ? null : (
-          <p className="py-site-header-description text-caption">{description}</p>
+          <Text variant="caption" tone="muted">
+            {description}
+          </Text>
         )}
       </div>
       {nav.length === 0 ? null : (
-        <nav className="text-small">
-          <ul className="py-link-list">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
-              </li>
-            ))}
-          </ul>
+        <nav>
+          <LinkList links={nav} />
         </nav>
       )}
     </header>

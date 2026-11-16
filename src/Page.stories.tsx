@@ -5,6 +5,7 @@ import { Page } from "./Page.tsx";
 import { PostIndex } from "./PostIndex.tsx";
 import { SiteFooter } from "./SiteFooter.tsx";
 import { SiteHeader } from "./SiteHeader.tsx";
+import { Text } from "./Text.tsx";
 
 const meta = {
   // First in the sidebar: a page is where the components are seen together.
@@ -26,16 +27,12 @@ export const TopPage: Story = {
   },
 };
 
-// A column to read, as a post has. What a post is made of comes with its own components.
+// A column to read, as a post has. What a post is made of, and the space between its parts, comes
+// with its own components.
 export const TextPage: Story = {
   args: {
     width: "text",
     header: <SiteHeader {...site} nav={nav} />,
-    children: (
-      <>
-        <h1 className="text-title">{post.title}</h1>
-        <p>{post.lead}</p>
-      </>
-    ),
+    children: <Text>{post.lead}</Text>,
   },
 };

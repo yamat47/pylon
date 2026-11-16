@@ -40,7 +40,7 @@ const preview: Preview = {
     layout: "fullscreen",
     // The page's color comes from the tokens, with the theme.
     backgrounds: { disable: true },
-    options: { storySort: { order: ["Pages", "Site", "Posts"] } },
+    options: { storySort: { order: ["Pages", "Site", "Posts", "Lists", "Text"] } },
   },
 };
 

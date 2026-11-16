@@ -28,6 +28,8 @@ services:
       # In some environments (such as colima's default), edits on the host do not reach the container
       # via inotify, so pick them up by polling. The chokidar bundled with Vite reads this variable
       CHOKIDAR_USEPOLLING: "true"
+      # The same for the watcher that finds new story files (watchpack)
+      WATCHPACK_POLLING: "true"
     # Passes once Storybook answers. make storybook is docker compose up --wait, which waits for this.
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://localhost:6006/').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]

@@ -1,5 +1,7 @@
-// The texts the stories of a post show: what a site's Markdown would render to, written out.
-import { linkedPage, picture } from "./fixtures.ts";
+// The texts the stories show that are more than a string: what a site's Markdown would render
+// to, and what its script would put into a list of search results, written out.
+import { fullDate } from "./dates.ts";
+import { linkedPage, picture, search } from "./fixtures.ts";
 import { LinkCard } from "./LinkCard.tsx";
 
 // One post, less one of its sections.
@@ -116,5 +118,34 @@ export const otherBlocks = (
     <pre>
       <code>make check</code>
     </pre>
+  </>
+);
+
+// What a search found, as the site's script would put it into the list: an item per post. The
+// first dates itself with a `time`, the second with a `span`, which is what a script that only has
+// the date as text writes.
+const [first, second] = search.found;
+if (!first || !second) throw new Error("the search fixture has fewer than two results");
+
+export const foundItems = (
+  <>
+    <li>
+      <time dateTime={first.post.date}>{fullDate(first.post.date)}</time>
+      <a href={first.post.href}>{first.post.title}</a>
+      <p>
+        {first.before}
+        <mark>{first.match}</mark>
+        {first.after}
+      </p>
+    </li>
+    <li>
+      <span>{fullDate(second.post.date)}</span>
+      <a href={second.post.href}>{second.post.title}</a>
+      <p>
+        {second.before}
+        <mark>{second.match}</mark>
+        {second.after}
+      </p>
+    </li>
   </>
 );

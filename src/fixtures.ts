@@ -15,6 +15,13 @@ export const footerLinks: readonly LinkItem[] = [
   { label: "プライバシーポリシー", href: "/privacy" },
 ];
 
+// A post a search finds (the search fixture below).
+export const postmortems: IndexedPost = {
+  date: "2025-09-18",
+  href: "/entry/2025/09/18/083019",
+  title: "ポストモーテムを意味のあるものにするには？",
+};
+
 // The post whose text the stories of a post show (fixture-texts.tsx).
 export const splittingStories: IndexedPost = {
   date: "2025-02-13",
@@ -29,11 +36,7 @@ export const posts: readonly IndexedPost[] = [
     href: "/entry/2025/10/14/220005",
     title: "「絶不調」がつづいていたら気をつけろ、と伝えている",
   },
-  {
-    date: "2025-09-18",
-    href: "/entry/2025/09/18/083019",
-    title: "ポストモーテムを意味のあるものにするには？",
-  },
+  postmortems,
   {
     date: "2025-09-07",
     href: "/entry/2025/09/07/194400",
@@ -68,4 +71,33 @@ export const privacy = {
   title: "プライバシーポリシー",
   heading: "アクセス解析について",
   text: "当サイトでは、Google によるアクセス解析ツール「Google アナリティクス」を使用しています。Google アナリティクスは、データの収集のために Cookie を使用しています。このデータは匿名で収集されており、個人を特定するものではありません。",
+};
+
+// The search page: what it is called, and what a search for one word found in two posts. The
+// words around a match are a post's own; Pagefind marks the match and cuts the text with an
+// ellipsis.
+export const search = {
+  title: "検索",
+  field: { id: "search-input", name: "q", label: "検索する言葉", placeholder: "記事を検索" },
+  results: {
+    statusId: "search-status",
+    listId: "search-results",
+    withoutScript: "検索には JavaScript が必要です。",
+  },
+  status: "2件の記事が見つかりました。",
+  nothing: "「アジャイル」を含む記事は見つかりませんでした。",
+  found: [
+    {
+      post: postmortems,
+      before: "インシデント後のポストモーテムを実施するとき、再発防止策まで",
+      match: "考え",
+      after: "て満足するのは危険。「その対策を講じていたら本当に発生しなかったのか？」…",
+    },
+    {
+      post: splittingStories,
+      before: "…需要があるかもと思い、自分が普段",
+      match: "考え",
+      after: "ていることをメモしてみます。 前提 カンバン方式で開発をしています。…",
+    },
+  ],
 };

@@ -12,6 +12,8 @@ export { PageHeader } from "./PageHeader.tsx";
 export { PostIndex } from "./PostIndex.tsx";
 export { Prose } from "./Prose.tsx";
 export type { IndexedPost } from "./post-index.ts";
+export { SearchField } from "./SearchField.tsx";
+export { SearchResults } from "./SearchResults.tsx";
 export { SiteFooter } from "./SiteFooter.tsx";
 export { SiteHeader } from "./SiteHeader.tsx";
 export { Text } from "./Text.tsx";

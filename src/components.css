@@ -218,6 +218,75 @@ a:hover {
   content: "";
 }
 
+/* SearchField: one input, as wide as its column. */
+.py-search-field {
+  /* The width is the column's with the padding and the edge inside it. */
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  /* The muted ink and not the border's color: the edge is all that shows where the field is. */
+  border: var(--stroke-hairline) solid var(--color-ink-muted);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: inherit;
+}
+
+/* The placeholder is the only words on the field. The browser's own grey is not a token, and is too faint on the dark surface. */
+.py-search-field::placeholder {
+  color: var(--color-ink-muted);
+  /* Firefox draws a placeholder at part of its color's strength. */
+  opacity: 1;
+}
+
+/*
+ * SearchResults: a line that says how the search went, then what it found. The items are put in
+ * by the site's script, so they carry no class and are styled by what they are: a date, a title
+ * that links, and the words around the match. Each takes a line of its own, in its own text
+ * style; a list with no item takes no room.
+ */
+.py-search-results {
+  margin-block-start: var(--space-6);
+}
+
+.py-search-results-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-search-results-list > li {
+  display: flex;
+  flex-direction: column;
+  /* A title is as wide as its words, so that the space beside it is not a link. */
+  align-items: flex-start;
+  margin-block-start: var(--space-6);
+}
+
+.py-search-results-list > li > :is(time, span) {
+  color: var(--color-ink-muted);
+  font: var(--text-figure);
+  /* The shorthand cannot hold the figures of the text style, so they are said again here. */
+  font-variant-numeric: tabular-nums;
+}
+
+.py-search-results-list > li > a {
+  font: var(--text-entry);
+  text-decoration-line: none;
+  /* Where the browser can, a Japanese title breaks between phrases and not inside a word. */
+  word-break: auto-phrase;
+}
+
+.py-search-results-list > li > p {
+  margin: var(--space-1) 0 0;
+  color: var(--color-ink-muted);
+  font: var(--text-small);
+}
+
+.py-search-results-list mark {
+  background: var(--color-mark);
+  color: var(--color-ink);
+}
+
 /* PageHeader: a page's title, under the day it is dated when it has one. */
 .py-page-header {
   display: flex;

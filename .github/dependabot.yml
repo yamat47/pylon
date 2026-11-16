@@ -2,7 +2,7 @@
 # GitHub Actions are out of scope because github-toolkit is referenced at @main.
 # The skills in .claude/skills/ are also out of Dependabot's scope; the update-skills workflow plays the same role.
 #  - minor / patch of development dependencies: one PR (less noise)
-#  - major: individual PRs
+#  - major: individual PRs, except the packages that only install together (the groups below)
 version: 2
 
 updates:
@@ -23,6 +23,17 @@ updates:
       prefix: chore(deps)
       prefix-development: chore(deps-dev)
     groups:
+      # Packages that only install together: the addons and the framework ask for the same
+      # version of storybook, and react for the same version of its types' major.
+      storybook:
+        patterns:
+          - storybook
+          - "@storybook/*"
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
       dev-dependencies:
         dependency-type: development
         update-types:

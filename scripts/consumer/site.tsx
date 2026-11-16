@@ -3,6 +3,7 @@
 // stops being an error, which is what happens when the types do not reach a site at all.
 import {
   type DataAttributes,
+  fullDate,
   LinkCard,
   type LinkItem,
   Page,
@@ -58,6 +59,9 @@ export const classedDate = (
   // @ts-expect-error nor a page's date
   <PageHeader title="A post" date="2025-02-13" dateAttributes={{ className: "mine" }} />
 );
+
+// A date as a site's script writes it into a list of results.
+export const written: string = fullDate("2025-02-13");
 
 // The tokens as data, read the way a site reads a color for what it draws outside a page.
 export const surface: string | undefined = tokens.color.tokens.find(

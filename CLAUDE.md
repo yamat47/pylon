@@ -3,10 +3,10 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-So far it holds the tokens, the fonts, the toolchain, the components of three of the blog's pages (the top page, a
-post, and a page with a title and text such as the privacy policy) and the build that a release publishes. The
-search page and the copy on Claude Design are still to come; "What is decided" and "Not decided yet" below say
-where they are headed.
+So far it holds the tokens, the fonts, the toolchain, the components of the blog's pages (the top page, a post, a
+page with a title and text such as the privacy policy, and the search page) and the build that a release
+publishes. The copy on Claude Design is still to come; "What is decided" and "Not decided yet" below say where
+things are headed.
 
 ## Layout
 
@@ -18,7 +18,7 @@ where they are headed.
 | `src/styles.css` | The stylesheet a site loads: the fonts, the tokens and the components' styles, in that order |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
-| `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and the text of one post as its Markdown would render it |
+| `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and what is more than a string: the text of one post as its Markdown would render it, and what a search found as the site's script would list it |
 | `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
 | `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), the contrast calculation, and the test of the built package (`package.smoke.ts`) |
 | `tsconfig.build.json`, `dist/` | What the package is built from, and the build: JavaScript and types from `tsc`, the stylesheets and the tokens copied beside them. Not committed |
@@ -71,12 +71,14 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   not read `.tsx`
 - **What is published imports no CSS.** `src/index.ts` exports components and types only, so that the built
   JavaScript runs anywhere, Node included; a site loads `styles.css` beside it. The build is the entry and what it
-  imports, so a file reaches the package by being imported from `src/index.ts` and in no other way
-- **`Prose` styles elements, everything else styles classes.** What a site's Markdown renders to has no class, so
-  the rules under `.py-prose` name elements (`h2`, `blockquote`, `img`). That is the one place a bare element is
-  styled, apart from `body` and links. How a block looks is written with `:where(.py-prose)`, so that it weighs no
-  more than the element and any component's class wins inside a `Prose`; only the space between blocks is written
-  at full weight
+  imports, so code reaches the package by being imported from `src/index.ts` and in no other way; the stylesheets
+  and `system/tokens.json` are copied beside it
+- **A component styles classes, except where it does not write the content.** What a site's Markdown renders to
+  has no class, so the rules under `.py-prose` name elements (`h2`, `blockquote`, `img`); the items a site's
+  script puts into a `SearchResults` have none either, and its guideline says what an item is made of. Those two,
+  with `body` and links, are the only places a bare element is styled. How a block looks in a `Prose` is written
+  with `:where(.py-prose)`, so that it weighs no more than the element and any component's class wins inside it;
+  only the space between blocks is written at full weight
 - **A component's CSS is in `src/components.css`, under classes that start with `py-`.** Colors, text styles, spacing
   and line weights are tokens. A number written there is a component's own measure (the width of a column) or a
   length relative to the text, with a comment saying which
@@ -130,8 +132,6 @@ darker one for text on the light surface, where the orange is too pale to read.
 
 - How the fonts reach the copy on Claude Design. `type.fonts` in the tokens is empty, and the names in the font
   stack exist only where `src/fonts.css` is loaded, so until this is settled that copy is set in the system's gothic
-- What the search page is made of: its input, and a result with the found words marked (`color-mark` is waiting
-  for it)
 - How a site's Markdown reaches the components. `LinkCard` is a component, and the blog builds its cards inside a
   Markdown plugin; the blog also marks a card and a post's date for its search index, which a component from here
   does not know about. Both are settled when the blog adopts the package
@@ -175,7 +175,8 @@ The steps are in `README.md` ("Releasing"). Two rules beside them:
 - **The owner pushes the tag.** A session prepares the pull request that raises the version and stops there: it
   publishes nothing, by any route
 - **A change that a site would notice raises the version in the pull request that makes it:** a component's props,
-  a token's name, what `styles.css` does to a page
+  a token's name, what `styles.css` does to a page, and the shape of `tokens.json`, which is `system/tokens.json`
+  as it is: a site reads a color out of it by the names of its fields
 
 ## How changes enter
 

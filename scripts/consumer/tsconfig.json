@@ -8,6 +8,7 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "skipLibCheck": false,
+    "resolveJsonModule": true,
     "types": []
   },
   "include": ["site.tsx"]

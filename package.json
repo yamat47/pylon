@@ -1,6 +1,6 @@
 {
   "name": "@yamat47/pylon",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design system for blog.yamat47.me and my portfolio: design tokens and React components",
   "license": "MIT",
   "repository": {
@@ -14,6 +14,7 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./tokens.json": "./dist/tokens.json",
     "./package.json": "./package.json"
   },
   "files": [
@@ -26,7 +27,7 @@
     "tokens": "node scripts/tokens.ts",
     "storybook": "storybook dev --port 6006 --host 0.0.0.0 --no-open --ci",
     "storybook:build": "storybook build",
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && cp src/*.css dist/",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && cp src/*.css system/tokens.json dist/",
     "typecheck": "tsc",
     "lint": "biome check --error-on-warnings .",
     "lint:fix": "biome check --write .",

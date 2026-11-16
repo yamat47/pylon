@@ -5,8 +5,8 @@ components, to be published to npm as `@yamat47/pylon`.
 
 So far it holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
 [`src/tokens.css`](src/tokens.css)) and the components the blog's top page, a post and a page of text are made of
-([`src/`](src/)). The fonts and the first release are still to come. What is decided so far, including the look, is
-in [CLAUDE.md](CLAUDE.md).
+([`src/`](src/)), with the two fonts they are set in. The first release is still to come. What is decided so far,
+including the look, is in [CLAUDE.md](CLAUDE.md).
 
 It is the design of two sites of mine. The package is public so that those sites can install it; it is not meant as
 a library for other projects, and its look may change without notice.

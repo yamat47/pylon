@@ -1,0 +1,48 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>pylon</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--color-surface); color: var(--color-ink); font-family: var(--font-sans); overflow: hidden; }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; }
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 288px; }
+  .art svg { display: block; }
+  .block { rx: var(--radius-sm); }
+  .ink { fill: var(--color-ink); }
+  .accent { fill: var(--color-accent); }
+  .mark { fill: var(--color-mark); }
+  .rule { stroke: var(--color-surface); stroke-width: var(--stroke-hairline); }
+  .words { position: absolute; left: 24px; bottom: 24px; max-width: 440px; }
+  .name { margin: 0; font-size: 120px; line-height: .9; font-weight: 700; letter-spacing: -.03em; }
+  .tag { margin: 16px 0 0 4px; font-size: 14px; line-height: 20px; color: var(--color-ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art">
+<svg viewBox="0 0 480 288" width="480" height="288" aria-hidden="true">
+<!--
+  blocks      color-ink 144×240 at x=24,y=24 · color-accent 288×96 at x=192,y=24, to the right edge (drawn 300 wide, so that its right corners fall outside) · color-mark 216×120 at x=192,y=144, the relief. Together about 32% of 960×288. The accent takes a large block although a page spends it on underlines only: it is the one hue the system is known by.
+  arrangement one tall slab of ink with two unequal bands beside it, on a 24px gutter (space-6); the accent runs off the right edge, the tint stops short of it.
+  pattern     hairline rules, from "quiet and editorial" and "more space is better than a rule": four rules of color-surface, stroke-hairline thick, cut across the ink slab at the pitch of space-12, as the rows of an index are ruled.
+  scales      sides in multiples of space-12 (48) and space-6 (24): 144, 240, 96, 288, 216, 120; rule pitch space-12; every corner radius-sm.
+-->
+<rect class="block ink" x="24" y="24" width="144" height="240"/>
+<line class="rule" x1="24" y1="72" x2="168" y2="72"/>
+<line class="rule" x1="24" y1="120" x2="168" y2="120"/>
+<line class="rule" x1="24" y1="168" x2="168" y2="168"/>
+<line class="rule" x1="24" y1="216" x2="168" y2="216"/>
+<rect class="block accent" x="192" y="24" width="300" height="96"/>
+<rect class="block mark" x="192" y="144" width="216" height="120"/>
+</svg>
+</div>
+<div class="words">
+  <h1 class="name">pylon</h1>
+  <p class="tag">Quiet pages to read, in black, white and one orange.</p>
+</div>
+</div>
+</body>
+</html>

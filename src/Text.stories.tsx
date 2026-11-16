@@ -15,7 +15,7 @@ function sample(variant: TextVariant): string {
 const meta = {
   title: "Text/Text",
   component: Text,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
 } satisfies Meta<typeof Text>;
 
 export default meta;

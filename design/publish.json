@@ -1,0 +1,5 @@
+{
+  "artifact": "https://claude.ai/artifact/VsztUfNd2pZgqPF4kAy3X3",
+  "root": "design/project",
+  "check": "make project-check"
+}

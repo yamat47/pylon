@@ -6,7 +6,7 @@ import { SiteFooter } from "./SiteFooter.tsx";
 const meta = {
   title: "Site/SiteFooter",
   component: SiteFooter,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "wide" } },
   args: { links: footerLinks },
 } satisfies Meta<typeof SiteFooter>;
 

@@ -6,7 +6,7 @@ import { Prose } from "./Prose.tsx";
 const meta = {
   title: "Text/Prose",
   component: Prose,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
 } satisfies Meta<typeof Prose>;
 
 export default meta;

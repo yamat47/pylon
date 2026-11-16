@@ -54,6 +54,10 @@ jobs:
       - name: Test the built package
         run: pnpm run test:package
 
+      # design/project/ is built from the sources and committed. This fails when the two disagree.
+      - name: Check the copy for Claude Design
+        run: pnpm run project:check
+
       # No story is rendered here: the build only shows that every component and story compiles.
       - name: Build Storybook
         run: pnpm run storybook:build

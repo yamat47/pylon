@@ -1,0 +1,23 @@
+<!-- @dsCard group="Search" width=728 subtitle="Found, Nothing Found, Before A Search" -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>SearchResults</title>
+<style>#root { display: grid; gap: var(--space-12); padding: var(--space-6); } #root > div { min-width: 0; }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+document.documentElement.lang = "ja";
+var P = window.Pylon, h = React.createElement;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  h(React.Fragment, null,
+    h("div", null, h(P.SearchResults, { "statusId": "search-status", "listId": "search-results", "withoutScript": "検索には JavaScript が必要です。", "status": "2件の記事が見つかりました。" }, h(React.Fragment, null, h("li", null, h("time", { "dateTime": "2025-09-18" }, "2025.09.18"), h("a", { "href": "/entry/2025/09/18/083019" }, "ポストモーテムを意味のあるものにするには？"), h("p", null, "インシデント後のポストモーテムを実施するとき、再発防止策まで", h("mark", null, "考え"), "て満足するのは危険。「その対策を講じていたら本当に発生しなかったのか？」…")), h("li", null, h("span", null, "2025.02.13"), h("a", { "href": "/entry/2025/02/13/192603" }, "開発のストーリー分割・タスク分割をするときに考えていること"), h("p", null, "…需要があるかもと思い、自分が普段", h("mark", null, "考え"), "ていることをメモしてみます。 前提 カンバン方式で開発をしています。…"))))),
+    h("div", null, h(P.SearchResults, { "statusId": "search-status", "listId": "search-results", "withoutScript": "検索には JavaScript が必要です。", "status": "「アジャイル」を含む記事は見つかりませんでした。" })),
+    h("div", null, h(P.SearchResults, { "statusId": "search-status", "listId": "search-results", "withoutScript": "検索には JavaScript が必要です。" }))
+  )
+);
+</script>
+</body>
+</html>

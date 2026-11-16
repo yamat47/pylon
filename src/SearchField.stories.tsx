@@ -6,7 +6,7 @@ import { SearchField } from "./SearchField.tsx";
 const meta = {
   title: "Search/SearchField",
   component: SearchField,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
   args: search.field,
 } satisfies Meta<typeof SearchField>;
 

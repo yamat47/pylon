@@ -1,14 +1,10 @@
 // What makes a file in src/ a component of the design system (index.ts says the same).
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { test } from "node:test";
+import { components as listed } from "../scripts/components.ts";
 
-const files = await readdir(import.meta.dirname);
-
-// A component is a .tsx file named with a capital, less its stories.
-const components = files
-  .filter((file) => /^[A-Z]\w*\.tsx$/.test(file))
-  .map((file) => file.slice(0, -".tsx".length));
+const { names: components, files } = await listed();
 
 test("there are components to check", () => {
   assert.notDeepEqual(components, []);

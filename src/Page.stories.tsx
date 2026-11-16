@@ -15,7 +15,7 @@ const meta = {
   // First in the sidebar: a page is where the components are seen together.
   title: "Pages/Page",
   component: Page,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "page" } },
   args: { footer: <SiteFooter links={footerLinks} /> },
 } satisfies Meta<typeof Page>;
 

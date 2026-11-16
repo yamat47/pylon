@@ -6,7 +6,7 @@ import { PostIndex } from "./PostIndex.tsx";
 const meta = {
   title: "Posts/PostIndex",
   component: PostIndex,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "wide" } },
   args: { posts },
 } satisfies Meta<typeof PostIndex>;
 

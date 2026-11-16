@@ -1,6 +1,8 @@
 // The design system's surface. A component is part of it when it is exported here and has a
 // guideline (`<Name>.md`) and stories (`<Name>.stories.tsx`) beside it; a test checks that
-// (index.test.ts). Importing this file brings both stylesheets, so one import gives a page the look.
+// (index.test.ts). Importing this file brings the fonts and both stylesheets, so one import gives a
+// page the look.
+import "./fonts.css";
 import "./tokens.css";
 import "./components.css";
 

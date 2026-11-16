@@ -1,0 +1,53 @@
+/* pylon — generated from tokens.json */
+:root, [data-theme="light"] {
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f2f2f2;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #666666;
+  --color-border: #e5e5e5;
+  --color-accent: #e8590c;
+  --color-accent-ink: #c2410c;
+  --color-mark: #ffe3d1;
+}
+[data-theme="dark"] {
+  --color-surface: #111111;
+  --color-surface-sunken: #1e1e1e;
+  --color-ink: #ededed;
+  --color-ink-muted: #a3a3a3;
+  --color-border: #2e2e2e;
+  --color-accent: #ff7a33;
+  --color-accent-ink: #ff7a33;
+  --color-mark: #5a2a0e;
+}
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-24: 6rem;
+  --width-gutter: 1.5rem;
+  --width-measure: 42.5rem;
+  --width-page: 60rem;
+  --radius-sm: 4px;
+  --stroke-hairline: 1px;
+  --stroke-underline: 2px;
+  --font-sans: "Inter", "Noto Sans JP", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.text-title { font-family: var(--font-sans); font-size: 1.75rem; line-height: 1.45; font-weight: 700; }
+.text-heading { font-family: var(--font-sans); font-size: 1.25rem; line-height: 1.5; font-weight: 700; }
+.text-subheading { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 700; }
+.text-minor-heading { font-family: var(--font-sans); font-size: 1rem; line-height: 1.9; font-weight: 700; }
+.text-entry { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 500; }
+.text-body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.9; font-weight: 400; }
+.text-small { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; font-weight: 400; }
+.text-caption { font-family: var(--font-sans); font-size: 0.8125rem; line-height: 1.5; font-weight: 400; }
+.text-label { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; font-weight: 600; letter-spacing: 0.04em; }
+.text-figure { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; font-weight: 400; }
+.text-site { font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; font-weight: 600; letter-spacing: 0.01em; }
+.text-code { font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; font-weight: 400; }

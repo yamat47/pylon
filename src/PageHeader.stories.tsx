@@ -6,7 +6,7 @@ import { PageHeader } from "./PageHeader.tsx";
 const meta = {
   title: "Pages/PageHeader",
   component: PageHeader,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
 } satisfies Meta<typeof PageHeader>;
 
 export default meta;

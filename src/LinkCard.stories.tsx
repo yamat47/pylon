@@ -10,7 +10,7 @@ if (!ownPost) throw new Error("the fixtures have no post");
 const meta = {
   title: "Text/LinkCard",
   component: LinkCard,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
   args: linkedPage,
 } satisfies Meta<typeof LinkCard>;
 

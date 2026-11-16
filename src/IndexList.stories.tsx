@@ -9,7 +9,7 @@ const groups = byYear(posts);
 const meta = {
   title: "Lists/IndexList",
   component: IndexList,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "wide" } },
   args: { groups },
 } satisfies Meta<typeof IndexList>;
 

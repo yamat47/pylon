@@ -6,7 +6,7 @@ import { LinkList } from "./LinkList.tsx";
 const meta = {
   title: "Lists/LinkList",
   component: LinkList,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "wide" } },
   args: { links: footerLinks },
 } satisfies Meta<typeof LinkList>;
 

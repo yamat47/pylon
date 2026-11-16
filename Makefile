@@ -18,7 +18,7 @@ endef
 
 .PHONY: help
 help: ## Show the list of targets
-	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "} {printf "  make %-12s %s\n", $$1, $$2}'
+	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "} {printf "  make %-14s %s\n", $$1, $$2}'
 
 .PHONY: setup
 setup: ## Build the image and install dependencies (first time, and when the Dockerfile changes)
@@ -52,6 +52,14 @@ build: ## Build the package into dist/ (what a release publishes)
 .PHONY: tokens
 tokens: ## Write src/tokens.css from system/tokens.json (after editing the tokens)
 	$(PNPM) run tokens
+
+.PHONY: project
+project: ## Write design/project/, the copy of the design system that Claude Design gets
+	$(PNPM) run project
+
+.PHONY: project-check
+project-check: ## Fail when design/project/ is not what the sources build
+	$(PNPM) run project:check
 
 .PHONY: typecheck
 typecheck: ## Typecheck (tsc)

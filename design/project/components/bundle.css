@@ -1,0 +1,455 @@
+/* Generated from system/tokens.json: what components.css reads beside tokens.css. */
+:root {
+  --text-title: 700 1.75rem/1.45 var(--font-sans);
+  --text-heading: 700 1.25rem/1.5 var(--font-sans);
+  --text-subheading: 700 1.125rem/1.6 var(--font-sans);
+  --text-minor-heading: 700 1rem/1.9 var(--font-sans);
+  --text-entry: 500 1.125rem/1.6 var(--font-sans);
+  --text-body: 400 1rem/1.9 var(--font-sans);
+  --text-small: 400 0.875rem/1.5 var(--font-sans);
+  --text-caption: 400 0.8125rem/1.5 var(--font-sans);
+  --text-label: 600 0.875rem/1.5 var(--font-sans);
+  --text-figure: 400 0.875rem/1.5 var(--font-sans);
+  --text-site: 600 1rem/1.5 var(--font-sans);
+  --text-code: 400 0.875rem/1.6 var(--font-mono);
+}
+:root, [data-theme="light"] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+.text-title { font: var(--text-title); }
+.text-heading { font: var(--text-heading); }
+.text-subheading { font: var(--text-subheading); }
+.text-minor-heading { font: var(--text-minor-heading); }
+.text-entry { font: var(--text-entry); }
+.text-body { font: var(--text-body); }
+.text-small { font: var(--text-small); }
+.text-caption { font: var(--text-caption); }
+.text-label { font: var(--text-label); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.text-figure { font: var(--text-figure); font-variant-numeric: tabular-nums; }
+.text-site { font: var(--text-site); letter-spacing: 0.01em; }
+.text-code { font: var(--text-code); }
+
+/*
+ * The design system's stylesheet, for a page that has loaded tokens.css. Colors, text styles,
+ * spacing and line weights are tokens. What is written here as a number is a component's own
+ * measure (the width of a column) or a length relative to the text (em), each with its reason.
+ */
+
+/* Base: the page itself, so that a site on this system starts from the look and not from the browser's. */
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: var(--text-body);
+  /* Stops a phone from enlarging text it judges too small after a rotation. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* A link is the ink's color, told apart by the accent under it. */
+a {
+  color: inherit;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: var(--stroke-underline);
+  /* Clear of the descenders, at any text size. */
+  text-underline-offset: 0.3em;
+}
+
+a:hover {
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: var(--stroke-underline) solid var(--color-accent);
+  outline-offset: var(--space-1);
+}
+
+/* A link known to be one by where it is, such as a name or a title: the accent comes under the pointer. */
+.py-plain-link {
+  text-decoration-line: none;
+}
+
+/* A title: where the browser can, Japanese breaks between phrases and not inside a word. */
+.py-phrases {
+  word-break: auto-phrase;
+}
+
+/* What stands beside the text rather than being it: a date, a label, a caption. */
+.py-muted {
+  color: var(--color-ink-muted);
+}
+
+/* Text: a text style on an element. The space around it is for whatever lays it out. */
+.py-text {
+  margin: 0;
+}
+
+/* LinkList: a short row of links that wraps. */
+.py-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Page: the header, the content and the footer, centered and kept off the window's edges. */
+.py-page {
+  padding-inline: var(--width-gutter);
+}
+
+.py-site-header,
+.py-site-footer,
+.py-page-main {
+  max-width: var(--width-page);
+  margin-inline: auto;
+}
+
+.py-page-main {
+  padding-block-end: var(--space-24);
+}
+
+.py-page-main-text {
+  max-width: var(--width-measure);
+  padding-block-start: var(--space-12);
+}
+
+/* SiteHeader: the site's name at the start, the navigation at the end, a rule under both. */
+.py-site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-12) var(--space-6);
+  border-block-end: var(--stroke-hairline) solid var(--color-border);
+}
+
+/* SiteFooter: a rule, then the links every page carries. */
+.py-site-footer {
+  padding-block: var(--space-6) var(--space-14);
+  border-block-start: var(--stroke-hairline) solid var(--color-border);
+}
+
+/* IndexList: a label at the start of each group, its rows beside it, a rule between groups. */
+.py-index-list-group {
+  display: flex;
+  flex-wrap: wrap;
+  /* The label sits on the line of its first row's title. */
+  align-items: baseline;
+  gap: var(--space-2) var(--space-10);
+  padding-block: var(--space-8);
+}
+
+.py-index-list-group + .py-index-list-group {
+  border-block-start: var(--stroke-hairline) solid var(--color-border);
+}
+
+.py-index-list-label {
+  /* The column of labels: room for a year and the space the list leaves empty beside it. */
+  flex: 0 0 7.5rem;
+  margin: 0;
+}
+
+.py-index-list-items {
+  display: flex;
+  /* Takes the rest of the row, and a row of its own under the label where less than 26rem is left. */
+  flex: 999 1 26rem;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-index-list-item {
+  display: grid;
+  /* The column of figures: five characters (02.13) at the size of a figure. */
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--space-4);
+}
+
+/*
+ * LinkCard: a link shown as a card. The title, the description and the site in a column, and the
+ * thumbnail at the end when there is one.
+ */
+.py-link-card {
+  /* The width of the thumbnail, and the most of the card it may take: on a phone the full width
+     would leave the text a few characters a line. */
+  --thumbnail: min(11rem, 35%);
+
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: var(--stroke-hairline) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* The whole card is the link, so the accent goes to its edge and the text keeps its colors. */
+.py-link-card:hover {
+  border-color: var(--color-accent);
+  color: inherit;
+}
+
+.py-link-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  /* Lets a long address shrink the column instead of pushing the thumbnail out of the card. */
+  min-width: 0;
+  padding: var(--space-4);
+}
+
+/* A title or a description is cut after two lines, so that cards stay near one height. */
+.py-link-card-clamp {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.py-link-card-site {
+  margin-block-start: auto;
+}
+
+/*
+ * The thumbnail fills the end of the card from top to bottom, cropped to fit, so the text decides
+ * how tall a card is and a square image does not make one twice the height of the next. The
+ * least height is for a card whose text is one line.
+ */
+.py-link-card:has(.py-link-card-image) {
+  min-height: 6rem;
+  padding-inline-end: var(--thumbnail);
+}
+
+.py-link-card-image {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: var(--thumbnail);
+  height: 100%;
+  background: var(--color-surface-sunken);
+  object-fit: cover;
+}
+
+/*
+ * A thumbnail that fails to load. Chromium puts a broken-image mark in its place even though the
+ * image has no alternative text; a broken image is also the only one that has an ::after, which
+ * is drawn over the mark and leaves the tint.
+ */
+.py-link-card-image::after {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-sunken);
+  content: "";
+}
+
+/* SearchField: one input, as wide as its column. */
+.py-search-field {
+  /* The width is the column's with the padding and the edge inside it. */
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  /* The muted ink and not the border's color: the edge is all that shows where the field is. */
+  border: var(--stroke-hairline) solid var(--color-ink-muted);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: inherit;
+}
+
+/* The placeholder is the only words on the field. The browser's own grey is not a token, and is too faint on the dark surface. */
+.py-search-field::placeholder {
+  color: var(--color-ink-muted);
+  /* Firefox draws a placeholder at part of its color's strength. */
+  opacity: 1;
+}
+
+/*
+ * SearchResults: a line that says how the search went, then what it found. The items are put in
+ * by the site's script, so they carry no class and are styled by what they are: a date, a title
+ * that links, and the words around the match. Each takes a line of its own, in its own text
+ * style; a list with no item takes no room.
+ */
+.py-search-results {
+  margin-block-start: var(--space-6);
+}
+
+.py-search-results-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-search-results-list > li {
+  display: flex;
+  flex-direction: column;
+  /* A title is as wide as its words, so that the space beside it is not a link. */
+  align-items: flex-start;
+  margin-block-start: var(--space-6);
+}
+
+.py-search-results-list > li > :is(time, span) {
+  color: var(--color-ink-muted);
+  font: var(--text-figure);
+  /* The shorthand cannot hold the figures of the text style, so they are said again here. */
+  font-variant-numeric: tabular-nums;
+}
+
+.py-search-results-list > li > a {
+  font: var(--text-entry);
+  text-decoration-line: none;
+  /* Where the browser can, a Japanese title breaks between phrases and not inside a word. */
+  word-break: auto-phrase;
+}
+
+.py-search-results-list > li > p {
+  margin: var(--space-1) 0 0;
+  color: var(--color-ink-muted);
+  font: var(--text-small);
+}
+
+.py-search-results-list mark {
+  background: var(--color-mark);
+  color: var(--color-ink);
+}
+
+/* PageHeader: a page's title, under the day it is dated when it has one. */
+.py-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-block-end: var(--space-12);
+}
+
+/*
+ * Prose: the blocks of a text, one after another. Most of them come out of a site's Markdown, so
+ * they carry no class and are styled by what they are.
+ *
+ * How a block looks is said with :where, which gives a rule the weight of the element alone: a
+ * component placed in a Prose keeps its own look with a single class. The space between blocks is
+ * said at full weight, because it is the Prose's to set whatever the block is.
+ */
+:where(.py-prose) h2 {
+  font: var(--text-heading);
+}
+
+:where(.py-prose) h3 {
+  font: var(--text-subheading);
+}
+
+:where(.py-prose) h4 {
+  font: var(--text-minor-heading);
+}
+
+:where(.py-prose) :is(ul, ol) {
+  /* Room for a marker, at any text size. */
+  padding-inline-start: 1.4em;
+}
+
+:where(.py-prose) blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-4);
+  border-inline-start: var(--stroke-underline) solid var(--color-border);
+  color: var(--color-ink-muted);
+}
+
+:where(.py-prose) img {
+  max-width: 100%;
+  height: auto;
+}
+
+:where(.py-prose) figure {
+  margin-inline: 0;
+}
+
+:where(.py-prose) figure img {
+  display: block;
+}
+
+:where(.py-prose) figcaption {
+  color: var(--color-ink-muted);
+  font: var(--text-small);
+}
+
+:where(.py-prose) code {
+  /* A little room inside the tint, in proportion to the code's own size. */
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  font: var(--text-code);
+}
+
+:where(.py-prose) pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+}
+
+/* In a block the block is the tint. */
+:where(.py-prose) pre code {
+  padding: 0;
+  background: none;
+}
+
+/*
+ * A frame from another site, such as an embedded tweet, says nothing of its color scheme, so to
+ * the browser it is a light page whatever it draws. On the dark page the browser backs such a
+ * frame with an opaque surface, which shows as light slivers at the frame's rounded corners; said
+ * to be light as well, the frame gets no backing.
+ */
+:where(.py-prose) iframe {
+  color-scheme: light;
+}
+
+.py-prose > * {
+  margin-block: 0;
+}
+
+.py-prose > * + * {
+  margin-block-start: var(--space-6);
+}
+
+/* A heading stands away from what it ends and close to what it starts. */
+.py-prose > * + h2 {
+  margin-block-start: var(--space-14);
+}
+
+.py-prose > * + h3 {
+  margin-block-start: var(--space-10);
+}
+
+.py-prose > * + h4 {
+  margin-block-start: var(--space-8);
+}
+
+.py-prose > :is(h2, h3, h4) + * {
+  margin-block-start: var(--space-4);
+}
+
+.py-prose blockquote > * {
+  margin-block: 0;
+}
+
+.py-prose blockquote > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.py-prose li + li,
+.py-prose li > :is(ul, ol) {
+  margin-block-start: var(--space-2);
+}
+
+.py-prose figcaption {
+  margin-block-start: var(--space-2);
+}
+
+/* A link card stands a little further from the text around it than a paragraph does. */
+.py-prose > * + .py-link-card,
+.py-prose > .py-link-card + * {
+  margin-block-start: var(--space-8);
+}

@@ -7,7 +7,7 @@ import { SearchResults } from "./SearchResults.tsx";
 const meta = {
   title: "Search/SearchResults",
   component: SearchResults,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "text" } },
   args: search.results,
 } satisfies Meta<typeof SearchResults>;
 

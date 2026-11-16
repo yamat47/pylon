@@ -6,7 +6,7 @@ import { SiteHeader } from "./SiteHeader.tsx";
 const meta = {
   title: "Site/SiteHeader",
   component: SiteHeader,
-  parameters: { docs: { description: { component: readme } } },
+  parameters: { docs: { description: { component: readme } }, card: { frame: "wide" } },
   args: { ...site, nav },
 } satisfies Meta<typeof SiteHeader>;
 

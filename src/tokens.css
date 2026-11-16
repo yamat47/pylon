@@ -26,6 +26,7 @@
   --text-small: 400 0.875rem/1.5 var(--font-sans);
   --text-caption: 400 0.8125rem/1.5 var(--font-sans);
   --text-label: 600 0.875rem/1.5 var(--font-sans);
+  --text-figure: 400 0.875rem/1.5 var(--font-sans);
   --text-site: 600 1rem/1.5 var(--font-sans);
   --text-code: 400 0.875rem/1.6 var(--font-mono);
 }
@@ -72,5 +73,6 @@
 .text-small { font: var(--text-small); }
 .text-caption { font: var(--text-caption); }
 .text-label { font: var(--text-label); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.text-figure { font: var(--text-figure); font-variant-numeric: tabular-nums; }
 .text-site { font: var(--text-site); letter-spacing: 0.01em; }
 .text-code { font: var(--text-code); }

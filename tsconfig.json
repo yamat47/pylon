@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "skipLibCheck": true,
-    // TypeScript 6 loads no @types package unless it is named here. vite/client types what a story
+    // No @types package is loaded unless it is named here. vite/client types what a story
     // imports that is not code: a stylesheet, a guideline as text (`./Page.md?raw`).
     "types": ["node", "vite/client"]
   },

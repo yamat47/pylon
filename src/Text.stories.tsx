@@ -26,6 +26,12 @@ export const Title: Story = { args: { variant: "title", as: "h1", children: samp
 export const Heading: Story = {
   args: { variant: "heading", as: "h2", children: sample("heading") },
 };
+export const Subheading: Story = {
+  args: { variant: "subheading", as: "h3", children: sample("subheading") },
+};
+export const MinorHeading: Story = {
+  args: { variant: "minor-heading", as: "h4", children: sample("minor-heading") },
+};
 export const Entry: Story = { args: { variant: "entry", children: sample("entry") } };
 export const Body: Story = { args: { variant: "body", children: sample("body") } };
 export const Small: Story = { args: { variant: "small", children: sample("small") } };
@@ -39,4 +45,3 @@ export const Figure: Story = {
   args: { variant: "figure", tone: "muted", children: sample("figure") },
 };
 export const Site: Story = { args: { variant: "site", children: sample("site") } };
-export const Code: Story = { args: { variant: "code", children: sample("code") } };

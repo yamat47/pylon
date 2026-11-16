@@ -61,18 +61,21 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   to each other. A page that needs a class to look right is missing a component. Inside the package, a component
   uses `Text` where the element needs nothing else, and writes the classes itself where it does (a `time`, a cell
   of a grid)
+- **A component knows nothing of a site's tools.** What a tool reads off an element (a search index's marks, for
+  one) reaches it as `data-*` attributes, in a prop named for the element they are written on (`linkAttributes`,
+  `dateAttributes`) and typed `DataAttributes`. The component passes the prop through `dataAttributes`
+  (`src/data-attributes.ts`), which drops everything else, so a class, a handler or HTML cannot arrive that way
 - **A component is three files and an export.** `<Name>.tsx`, a guideline `<Name>.md` (what it is, its props, a do
   and a don't) and `<Name>.stories.tsx`, exported from `src/index.ts`. A test fails when one is missing
 - **A component renders to static HTML.** No hooks, no event handlers, no state: a site renders it at build time and
-  ships no JavaScript for it. The test of the built package (`scripts/package.smoke.ts`) renders one page and one
-  card that way, and `scripts/consumer` compiles a site's use of the types; nothing checks every component. What a
-  component works out goes in a `.ts` file beside it (`post-index.ts` for `PostIndex`, `dates.ts` for how a date
-  is written), where a test can reach it: Node does
-  not read `.tsx`
-- **What is published imports no CSS.** `src/index.ts` exports components and types only, so that the built
-  JavaScript runs anywhere, Node included; a site loads `styles.css` beside it. The build is the entry and what it
-  imports, so code reaches the package by being imported from `src/index.ts` and in no other way; the stylesheets
-  and `system/tokens.json` are copied beside it
+  ships no JavaScript for it. The test of the built package (`scripts/package.smoke.ts`) renders one page, one
+  card and one page header that way, and `scripts/consumer` compiles a site's use of the types; nothing checks
+  every component. What a component works out goes in a `.ts` file beside it (`post-index.ts` for `PostIndex`,
+  `dates.ts` for how a date is written), where a test can reach it: Node does not read `.tsx`
+- **What is published imports no CSS.** `src/index.ts` exports components, types and `fullDate` only, so that the
+  built JavaScript runs anywhere, Node included; a site loads `styles.css` beside it. The build is the entry and
+  what it imports, so code reaches the package by being imported from `src/index.ts` and in no other way; the
+  stylesheets and `system/tokens.json` are copied beside it
 - **A component styles classes, except where it does not write the content.** What a site's Markdown renders to
   has no class, so the rules under `.py-prose` name elements (`h2`, `blockquote`, `img`); the items a site's
   script puts into a `SearchResults` have none either, and its guideline says what an item is made of. Those two,
@@ -132,9 +135,6 @@ darker one for text on the light surface, where the orange is too pale to read.
 
 - How the fonts reach the copy on Claude Design. `type.fonts` in the tokens is empty, and the names in the font
   stack exist only where `src/fonts.css` is loaded, so until this is settled that copy is set in the system's gothic
-- How a site's Markdown reaches the components. `LinkCard` is a component, and the blog builds its cards inside a
-  Markdown plugin; the blog also marks a card and a post's date for its search index, which a component from here
-  does not know about. Both are settled when the blog adopts the package
 - The colors of highlighted code. `Prose` sets code in the `code` text style on a tint and gives it no colors; no
   post has a block of code yet
 

@@ -28,6 +28,11 @@ import "@yamat47/pylon/styles.css";
 `styles.css` is the fonts, the tokens and the components' styles in the order they have to load. The page has to
 say it is Japanese (`lang="ja"`) for titles to break between phrases.
 
+Two things are for what a site does around the components. A site's own tools, a search index for one, mark an
+element they did not write through `data-*` attributes: `linkAttributes` on a `LinkCard`, `dateAttributes` on a
+`PageHeader`. And `fullDate` writes a date as the components do (`2025.02.13`), for a script that fills a
+`SearchResults`.
+
 The tokens are also there as data, `@yamat47/pylon/tokens.json`, for what is drawn outside a page and cannot read a
 CSS variable, such as the image a shared link shows.
 

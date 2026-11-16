@@ -9,7 +9,6 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-14: 3.5rem;
-  --space-16: 4rem;
   --space-24: 6rem;
   --width-gutter: 1.5rem;
   --width-measure: 42.5rem;
@@ -21,6 +20,8 @@
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --text-title: 700 1.75rem/1.45 var(--font-sans);
   --text-heading: 700 1.25rem/1.5 var(--font-sans);
+  --text-subheading: 700 1.125rem/1.6 var(--font-sans);
+  --text-minor-heading: 700 1rem/1.9 var(--font-sans);
   --text-entry: 500 1.125rem/1.6 var(--font-sans);
   --text-body: 400 1rem/1.9 var(--font-sans);
   --text-small: 400 0.875rem/1.5 var(--font-sans);
@@ -68,6 +69,8 @@
 }
 .text-title { font: var(--text-title); }
 .text-heading { font: var(--text-heading); }
+.text-subheading { font: var(--text-subheading); }
+.text-minor-heading { font: var(--text-minor-heading); }
 .text-entry { font: var(--text-entry); }
 .text-body { font: var(--text-body); }
 .text-small { font: var(--text-small); }

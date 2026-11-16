@@ -3,9 +3,9 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-So far it holds the tokens, the toolchain and the components of the blog's top page. The components of a post, the
-fonts, the release to npm and the copy on Claude Design are still to come; "What is decided" and "Not decided yet"
-below say where they are headed.
+So far it holds the tokens, the toolchain and the components of three of the blog's pages: the top page, a post, and
+a page with a title and text such as the privacy policy. The search page, the fonts, the release to npm and the copy
+on Claude Design are still to come; "What is decided" and "Not decided yet" below say where they are headed.
 
 ## Layout
 
@@ -15,7 +15,7 @@ below say where they are headed.
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
-| `src/fixtures.ts` | What the stories show: the blog's own names, links and posts |
+| `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and the text of one post as its Markdown would render it |
 | `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
 | `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`) and the contrast calculation |
 | `docker/` | Development image and compose |
@@ -60,13 +60,19 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   and a don't) and `<Name>.stories.tsx`, exported from `src/index.ts`. A test fails when one is missing
 - **A component renders to static HTML.** No hooks, no event handlers, no state: a site renders it at build time and
   ships no JavaScript for it. Nothing checks this yet. What a component works out goes in a `.ts` file beside it
-  (`post-index.ts` for `PostIndex`), where a test can reach it: Node does not read `.tsx`
+  (`post-index.ts` for `PostIndex`, `dates.ts` for how a date is written), where a test can reach it: Node does
+  not read `.tsx`
+- **`Prose` styles elements, everything else styles classes.** What a site's Markdown renders to has no class, so
+  the rules under `.py-prose` name elements (`h2`, `blockquote`, `img`). That is the one place a bare element is
+  styled, apart from `body` and links. How a block looks is written with `:where(.py-prose)`, so that it weighs no
+  more than the element and any component's class wins inside a `Prose`; only the space between blocks is written
+  at full weight
 - **A component's CSS is in `src/components.css`, under classes that start with `py-`.** Colors, text styles, spacing
   and line weights are tokens. A number written there is a component's own measure (the width of a column) or a
   length relative to the text, with a comment saying which
 - **A story is args only.** No `render` and no decorators of its own, so that the same story can be drawn somewhere
   other than Storybook (the previews on Claude Design, to come). A story that needs other components passes them as
-  args. Stories show Japanese text from `src/fixtures.ts`, because that is what the sites carry
+  args. Stories show Japanese text from `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the sites carry
 - **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
   read to choose it, so a token without a use is not added (a test refuses an empty one)
 - **Keep dependencies few.** Everything here is also upkeep for the sites that install the package
@@ -108,10 +114,13 @@ darker one for text on the light surface, where the orange is too pale to read.
 - How the fonts reach a reader. Noto Sans JP is large; the options are files served by each site from this package,
   or Google Fonts, which would make every visit a request to Google. Until then the font stack ends in the system's
   gothic
-- What a post is made of: its title and date, the rendered Markdown, a link card. The top page's components exist;
-  these come next
-- The colors of highlighted code, and which element carries the `code` text style: `Text` offers the style and none of
-  the elements code is written in. It is settled with the components of a post, where code first appears
+- What the search page is made of: its input, and a result with the found words marked (`color-mark` is waiting
+  for it)
+- How a site's Markdown reaches the components. `LinkCard` is a component, and the blog builds its cards inside a
+  Markdown plugin; the blog also marks a card and a post's date for its search index, which a component from here
+  does not know about. Both are settled when the blog adopts the package
+- The colors of highlighted code. `Prose` sets code in the `code` text style on a tint and gives it no colors; no
+  post has a block of code yet
 
 ## Where the conventions live
 

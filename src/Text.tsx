@@ -6,7 +6,7 @@ type TextProps = {
   variant?: TextVariant | undefined;
   // What the text is in the document. The style does not follow from it: a page's title is an h1
   // in `title`, and the site's name on the top page is an h1 in `site`.
-  as?: "h1" | "h2" | "h3" | "p" | "span" | undefined;
+  as?: "h1" | "h2" | "h3" | "h4" | "p" | "span" | undefined;
   // `muted` for what stands beside the text: a date, a caption.
   tone?: "ink" | "muted" | undefined;
   children: ReactNode;

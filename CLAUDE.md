@@ -172,8 +172,8 @@ message and PR body before creating it. The commit author must be the repository
 
 The steps are in `README.md` ("Releasing"). Two rules beside them:
 
-- **The owner pushes the tag, and the owner publishes.** A session prepares the pull request that raises the
-  version and stops there. `make publish` is refused to a session by `.claude/settings.json`
+- **The owner pushes the tag.** A session prepares the pull request that raises the version and stops there: it
+  publishes nothing, by any route
 - **A change that a site would notice raises the version in the pull request that makes it:** a component's props,
   a token's name, what `styles.css` does to a page
 

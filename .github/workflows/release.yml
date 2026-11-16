@@ -92,7 +92,7 @@ jobs:
         run: pnpm run test:package
 
       - name: Publish
-        # access is in publishConfig in package.json. Provenance is asked for here, as a flag pnpm
-        # reads, and not there, so that the by-hand publish (make publish), which has none to give,
-        # is not refused. A tag checkout is a detached HEAD, so skip the branch check
+        # access is in publishConfig in package.json. Provenance is asked for as a flag, which pnpm
+        # reads (it does not read NPM_CONFIG_PROVENANCE). A tag checkout is a detached HEAD, so skip
+        # the branch check
         run: pnpm publish --provenance --no-git-checks

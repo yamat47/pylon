@@ -3,9 +3,10 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-So far it holds the tokens, the fonts, the toolchain and the components of three of the blog's pages: the top page, a
-post, and a page with a title and text such as the privacy policy. The search page, the release to npm and the copy
-on Claude Design are still to come; "What is decided" and "Not decided yet" below say where they are headed.
+So far it holds the tokens, the fonts, the toolchain, the components of three of the blog's pages (the top page, a
+post, and a page with a title and text such as the privacy policy) and the build that a release publishes. The
+search page and the copy on Claude Design are still to come; "What is decided" and "Not decided yet" below say
+where they are headed.
 
 ## Layout
 
@@ -14,11 +15,13 @@ on Claude Design are still to come; "What is decided" and "Not decided yet" belo
 | `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, the empty `shadow`). A style's `sample` is what the stories of `Text` show |
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
 | `src/fonts.css` | The two fonts the tokens name, loaded from the packages that carry their files (`@fontsource-variable/*`) |
+| `src/styles.css` | The stylesheet a site loads: the fonts, the tokens and the components' styles, in that order |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
 | `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and the text of one post as its Markdown would render it |
 | `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
-| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`) and the contrast calculation |
+| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), the contrast calculation, and the test of the built package (`package.smoke.ts`) |
+| `tsconfig.build.json`, `dist/` | What the package is built from, and the build: JavaScript and types from `tsc`, the stylesheets and the tokens copied beside them. Not committed |
 | `docker/` | Development image and compose |
 | `Makefile` | Entry point for development commands |
 
@@ -31,7 +34,8 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 
 | Goal | Command |
 |---|---|
-| Typecheck, lint, test and build Storybook in one go | `make check` (CI runs the same, plus zizmor on the workflows) |
+| Everything CI checks, in one go | `make check` (CI adds zizmor on the workflows) |
+| Build the package as a release does | `make build` (`dist/`) |
 | Look at the components | `make storybook` (http://localhost:6006) / `make logs` / `make down` |
 | Type check / lint / auto-fix / test | `make typecheck` / `make lint` / `make fix` / `make test` |
 | Write `src/tokens.css` after editing the tokens | `make tokens` |
@@ -60,9 +64,14 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 - **A component is three files and an export.** `<Name>.tsx`, a guideline `<Name>.md` (what it is, its props, a do
   and a don't) and `<Name>.stories.tsx`, exported from `src/index.ts`. A test fails when one is missing
 - **A component renders to static HTML.** No hooks, no event handlers, no state: a site renders it at build time and
-  ships no JavaScript for it. Nothing checks this yet. What a component works out goes in a `.ts` file beside it
-  (`post-index.ts` for `PostIndex`, `dates.ts` for how a date is written), where a test can reach it: Node does
+  ships no JavaScript for it. The test of the built package (`scripts/package.smoke.ts`) renders one page and one
+  card that way, and `scripts/consumer` compiles a site's use of the types; nothing checks every component. What a
+  component works out goes in a `.ts` file beside it (`post-index.ts` for `PostIndex`, `dates.ts` for how a date
+  is written), where a test can reach it: Node does
   not read `.tsx`
+- **What is published imports no CSS.** `src/index.ts` exports components and types only, so that the built
+  JavaScript runs anywhere, Node included; a site loads `styles.css` beside it. The build is the entry and what it
+  imports, so a file reaches the package by being imported from `src/index.ts` and in no other way
 - **`Prose` styles elements, everything else styles classes.** What a site's Markdown renders to has no class, so
   the rules under `.py-prose` name elements (`h2`, `blockquote`, `img`). That is the one place a bare element is
   styled, apart from `body` and links. How a block looks is written with `:where(.py-prose)`, so that it weighs no
@@ -73,7 +82,8 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   length relative to the text, with a comment saying which
 - **A story is args only.** No `render` and no decorators of its own, so that the same story can be drawn somewhere
   other than Storybook (the previews on Claude Design, to come). A story that needs other components passes them as
-  args. Stories show Japanese text from `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the sites carry
+  args. Stories show Japanese text from `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the
+  sites carry
 - **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
   read to choose it, so a token without a use is not added (a test refuses an empty one)
 - **A font is served by the site, never fetched from another one.** The font files come with the package, through
@@ -157,6 +167,15 @@ This overrides the harness's default attribution instructions. `.claude/settings
 the automatic trailers, but that covers only what the harness adds by itself: read every commit
 message and PR body before creating it. The commit author must be the repository owner
 (`git config user.name` / `user.email` matching the history on `main`), not an AI identity.
+
+## Releasing
+
+The steps are in `README.md` ("Releasing"). Two rules beside them:
+
+- **The owner pushes the tag, and the owner publishes.** A session prepares the pull request that raises the
+  version and stops there. `make publish` is refused to a session by `.claude/settings.json`
+- **A change that a site would notice raises the version in the pull request that makes it:** a component's props,
+  a token's name, what `styles.css` does to a page
 
 ## How changes enter
 

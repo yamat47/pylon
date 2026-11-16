@@ -3,13 +3,30 @@
 The design system of [blog.yamat47.me](https://blog.yamat47.me/) and of my portfolio site: design tokens and React
 components, to be published to npm as `@yamat47/pylon`.
 
-So far it holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
+It holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
 [`src/tokens.css`](src/tokens.css)) and the components the blog's top page, a post and a page of text are made of
-([`src/`](src/)), with the two fonts they are set in. The first release is still to come. What is decided so far,
-including the look, is in [CLAUDE.md](CLAUDE.md).
+([`src/`](src/)), with the two fonts they are set in. What is decided so far, including the look, is in
+[CLAUDE.md](CLAUDE.md).
 
 It is the design of two sites of mine. The package is public so that those sites can install it; it is not meant as
 a library for other projects, and its look may change without notice.
+
+## Using it in a site
+
+```sh
+pnpm add @yamat47/pylon react
+```
+
+The components are React, written to be rendered to HTML when the site is built: they hold no state and no
+handlers, so the site ships no JavaScript for them. The look is one stylesheet, loaded once.
+
+```tsx
+import { Page, PostIndex, SiteFooter, SiteHeader } from "@yamat47/pylon";
+import "@yamat47/pylon/styles.css";
+```
+
+`styles.css` is the fonts, the tokens and the components' styles in the order they have to load. The page has to
+say it is Japanese (`lang="ja"`) for titles to break between phrases.
 
 ## Development
 
@@ -19,9 +36,30 @@ Everything runs in Docker; only Docker and `make` are needed on the host.
 make setup     # build the image and install the dependencies
 make storybook # the components at http://localhost:6006 (make down stops it)
 make tokens    # write src/tokens.css after editing system/tokens.json
-make check     # typecheck, lint, test, and build Storybook
+make build     # build the package into dist/, as a release does
+make check     # everything CI checks
 make help      # list the targets
 ```
+
+## Releasing
+
+The version is `version` in `package.json` and the git tag `vX.Y.Z`. To release: raise the version in a pull
+request, and once it is on `main` and CI has passed, push the tag. `.github/workflows/release.yml` refuses a tag
+that is not on `main` or does not match the version, runs the checks, builds and publishes. Publishing cannot be
+undone.
+
+The workflow holds no token: npm trusts this repository's `release.yml` in the `release` environment (trusted
+publishing), which is registered in the package's settings on npmjs.com. npm only lets a trusted publisher be
+registered for a package that exists, so the name is made to exist by hand, once, with version 0.0.1:
+
+```sh
+NPM_TOKEN=<a granular access token that may publish @yamat47/pylon> make publish
+```
+
+It runs the same checks as the workflow and refuses anything but a clean `main`. 0.0.1 gets no tag. After it:
+register the trusted publisher on npmjs.com (repository `yamat47/pylon`, workflow `release.yml`, environment
+`release`), revoke the token, and remove `make publish` from the Makefile. The first version a site installs is
+0.1.0, released by its tag like every version after it.
 
 ## Skills
 

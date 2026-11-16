@@ -4,6 +4,7 @@
 // (`@yamat47/pylon/styles.css`): what is published is plain JavaScript that imports no CSS, so that
 // anything able to run JavaScript can render the components.
 
+export { fullDate } from "./dates.ts";
 export { IndexList } from "./IndexList.tsx";
 export { LinkCard } from "./LinkCard.tsx";
 export { LinkList } from "./LinkList.tsx";
@@ -18,4 +19,4 @@ export { SiteFooter } from "./SiteFooter.tsx";
 export { SiteHeader } from "./SiteHeader.tsx";
 export { Text } from "./Text.tsx";
 export type { TextVariant } from "./text-variants.ts";
-export type { IndexGroup, IndexItem, LinkItem } from "./types.ts";
+export type { DataAttributes, IndexGroup, IndexItem, LinkItem } from "./types.ts";

@@ -4,6 +4,12 @@ export type LinkItem = {
   readonly href: string;
 };
 
+// What a site's own tools read off an element, such as the mark that keeps it out of a search
+// index: `data-*` attributes, the only kind a site adds to what a component writes.
+export type DataAttributes = {
+  readonly [name: `data-${string}`]: string | undefined;
+};
+
 // One row of an IndexList: a short figure, then a title that links somewhere.
 export type IndexItem = {
   readonly title: string;

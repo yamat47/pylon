@@ -1,4 +1,6 @@
+import { dataAttributes } from "./data-attributes.ts";
 import { fullDate } from "./dates.ts";
+import type { DataAttributes } from "./types.ts";
 
 type LinkCardProps = {
   href: string;
@@ -10,11 +12,22 @@ type LinkCardProps = {
   date?: string | undefined;
   // The address of a thumbnail, usually on the linked page's own site.
   image?: string | undefined;
+  // Written on the card's link, for the site's own tools: the mark that keeps a card out of a
+  // search index, for one.
+  linkAttributes?: DataAttributes | undefined;
 };
 
-export function LinkCard({ href, title, description, site, date, image }: LinkCardProps) {
+export function LinkCard({
+  href,
+  title,
+  description,
+  site,
+  date,
+  image,
+  linkAttributes,
+}: LinkCardProps) {
   return (
-    <a className="py-link-card py-plain-link" href={href}>
+    <a className="py-link-card py-plain-link" href={href} {...dataAttributes(linkAttributes)}>
       <span className="py-link-card-body">
         <span className="py-link-card-clamp text-entry">{title}</span>
         {description === undefined ? null : (

@@ -4,7 +4,7 @@ What a search found: a line that says how it went, and under it the list of what
 
 The list is filled by the site, usually by a script in the reader's browser, so its items carry no class and are styled by what they are. An item is an `li` holding, in this order:
 
-- a `time` or a `span`: the date of what was found
+- a `time` or a `span`: the date of what was found, written as the other dates are (`fullDate`, which the package exports for this, turns `2025-02-13` into `2025.02.13`)
 - an `a`: its title, linking to it
 - a `p`: the words around the match, with each matched word in a `mark`
 

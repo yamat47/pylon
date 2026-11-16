@@ -36,6 +36,13 @@ element they did not write through `data-*` attributes: `linkAttributes` on a `L
 The tokens are also there as data, `@yamat47/pylon/tokens.json`, for what is drawn outside a page and cannot read a
 CSS variable, such as the image a shared link shows.
 
+## The copy on Claude Design
+
+The same components and tokens are published to [Claude Design](https://claude.ai/) as a design system, to draw
+pages with before they are built. [`design/project/`](design/project/) is that copy, built from the sources and
+committed; the page there is read-only, and this repository is the source. How it is built and published is in
+[CLAUDE.md](CLAUDE.md).
+
 ## Development
 
 Everything runs in Docker; only Docker and `make` are needed on the host.
@@ -44,6 +51,7 @@ Everything runs in Docker; only Docker and `make` are needed on the host.
 make setup     # build the image and install the dependencies
 make storybook # the components at http://localhost:6006 (make down stops it)
 make tokens    # write src/tokens.css after editing system/tokens.json
+make project   # write design/project/, the copy for Claude Design
 make build     # build the package into dist/, as a release does
 make check     # everything CI checks
 make help      # list the targets

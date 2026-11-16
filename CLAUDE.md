@@ -4,15 +4,15 @@ The design system of https://blog.yamat47.me/ and of my portfolio site: design t
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
 So far it holds the tokens, the fonts, the toolchain, the components of the blog's pages (the top page, a post, a
-page with a title and text such as the privacy policy, and the search page) and the build that a release
-publishes. The copy on Claude Design is still to come; "What is decided" and "Not decided yet" below say where
-things are headed.
+page with a title and text such as the privacy policy, and the search page), the build that a release publishes,
+and the copy that Claude Design gets. "What is decided" and "Not decided yet" below say where things are headed.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, the empty `shadow`). A style's `sample` is what the stories of `Text` show |
+| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing else here reads (`version`, `themes`, the empty `fonts` and `shadow`). A style's `sample` is what the stories of `Text` show |
+| `system/README.md`, `system/cover.html` | What the copy on Claude Design opens on: the brand book, which tells whoever designs with the system how to use it, and the cover above it. Written by hand, for that copy only |
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
 | `src/fonts.css` | The two fonts the tokens name, loaded from the packages that carry their files (`@fontsource-variable/*`) |
 | `src/styles.css` | The stylesheet a site loads: the fonts, the tokens and the components' styles, in that order |
@@ -20,7 +20,8 @@ things are headed.
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
 | `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and what is more than a string: the text of one post as its Markdown would render it, and what a search found as the site's script would list it |
 | `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
-| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), the contrast calculation, and the test of the built package (`package.smoke.ts`) |
+| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), the contrast calculation, the test of the built package (`package.smoke.ts`), and what builds the copy for Claude Design (`project.ts`, with `preview.ts` for a component's card) |
+| `design/project/`, `design/publish.json` | The copy of the design system that Claude Design gets, and where it goes. Generated ("Rules that are easy to break") |
 | `tsconfig.build.json`, `dist/` | What the package is built from, and the build: JavaScript and types from `tsc`, the stylesheets and the tokens copied beside them. Not committed |
 | `docker/` | Development image and compose |
 | `Makefile` | Entry point for development commands |
@@ -39,6 +40,7 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 | Look at the components | `make storybook` (http://localhost:6006) / `make logs` / `make down` |
 | Type check / lint / auto-fix / test | `make typecheck` / `make lint` / `make fix` / `make test` |
 | Write `src/tokens.css` after editing the tokens | `make tokens` |
+| Write `design/project/` after a change that reaches the copy on Claude Design | `make project` (`make project-check` fails when it is stale) |
 | Add or update dependencies | `make pnpm ARGS="add -D <pkg>"` (the lockfile is also updated on the host) |
 | First run, or after changing the Dockerfile | `make setup` |
 
@@ -85,10 +87,17 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 - **A component's CSS is in `src/components.css`, under classes that start with `py-`.** Colors, text styles, spacing
   and line weights are tokens. A number written there is a component's own measure (the width of a column) or a
   length relative to the text, with a comment saying which
-- **A story is args only.** No `render` and no decorators of its own, so that the same story can be drawn somewhere
-  other than Storybook (the previews on Claude Design, to come). A story that needs other components passes them as
-  args. Stories show Japanese text from `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the
-  sites carry
+- **A story is args only.** No `render` and no decorators of its own, because a story is drawn twice: in Storybook,
+  and on the component's card in the copy on Claude Design, which is written from the args and refuses anything
+  else. A story that needs other components passes them as args. Stories show Japanese text from
+  `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the sites carry. How wide a card lays its
+  stories out is the one thing a story file says for the card alone: `parameters.card.frame` on its meta
+  (`scripts/preview.ts`)
+- **`design/project/` is built, committed, and published as it is.** After a change to a component, a story, a
+  guideline, the tokens, the brand book or the cover, run `make project` and commit the folder with the change;
+  `make check` fails when the two disagree. It reaches Claude Design only through the `design-publish` skill, which
+  publishes a commit that is on the remote and records it in the copy ("Publishing to Claude Design"). The page
+  there is read-only (`editing: code`): a change is made here, never there
 - **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
   read to choose it, so a token without a use is not added (a test refuses an empty one)
 - **A font is served by the site, never fetched from another one.** The font files come with the package, through
@@ -110,8 +119,11 @@ invokes it with `docker compose -f docker/compose.yaml run`.
 - **Components are React TSX that render to static HTML.** A site renders them at build time, so a component must
   work without client-side JavaScript. The same components go into the bundle published to Claude Design
 - **Design values live in the tokens only.** A component reads a token; it never holds a color, a text size, a
-  weight or a font as a literal. The blog already keeps its values in one file (`src/styles/tokens.css`) for these
-  tokens to replace
+  weight or a font as a literal
+- **The copy on Claude Design gets its two fonts from Google Fonts** (decided 2026-11-17). Its page fetches a font
+  it is given only the name of, so the copy's tokens name them as Google does (`Inter`, `Noto Sans JP`; the build
+  drops the `Variable` the packages' names end in) and it carries no font file. Only someone who opens the design
+  tool fetches from Google. The sites still serve their own files, and the rule about that above is unchanged
 
 ## The look
 
@@ -133,8 +145,6 @@ darker one for text on the light surface, where the orange is too pale to read.
 
 ## Not decided yet
 
-- How the fonts reach the copy on Claude Design. `type.fonts` in the tokens is empty, and the names in the font
-  stack exist only where `src/fonts.css` is loaded, so until this is settled that copy is set in the system's gothic
 - The colors of highlighted code. `Prose` sets code in the `code` text style on a tint and gives it no colors; no
   post has a block of code yet
 
@@ -144,7 +154,9 @@ darker one for text on the light surface, where the orange is too pale to read.
   TypeScript, and the `react-patterns` skill for components
 - Open pull requests with the `create-pr` skill
 - Check Dependabot pull requests with the `review-dependency-bump` skill, and skill update pull requests with the
-  `review-skill-update` skill
+  `review-skill-update` skill. A bump of the toolchain can change the bytes of `design/project/` (the bundle is the
+  bundler's output, the types are `tsc`'s): when `project-check` fails on one, `make project` is committed to that
+  pull request
 - The skills in `.claude/skills/` are installed from yamat47/github-toolkit. Do not edit them here. Rules specific to
   this repository live in this file; when they conflict with a skill, this file wins
 
@@ -167,6 +179,15 @@ This overrides the harness's default attribution instructions. `.claude/settings
 the automatic trailers, but that covers only what the harness adds by itself: read every commit
 message and PR body before creating it. The commit author must be the repository owner
 (`git config user.name` / `user.email` matching the history on `main`), not an AI identity.
+
+## Publishing to Claude Design
+
+The copy is the artifact named in `design/publish.json`. It is published from `main`, after the pull request that
+changed `design/project/` is merged: ask for it in a session ("publish the design") and the `design-publish` skill
+does the rest. A session that starts here may run the skill's status check, which writes nothing, to see whether
+the copy is behind `main`. The skill runs `make project-check` first; unlike what the skill expects, a failure
+leaves the folder as it was, so run `make project` and commit. Publishing changes no site: the sites get a change
+through a release of the package.
 
 ## Releasing
 

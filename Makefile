@@ -45,6 +45,20 @@ logs: ## Follow Storybook's logs
 	$(host_only)
 	$(COMPOSE) logs -f storybook
 
+.PHONY: build
+build: ## Build the package into dist/ (what a release publishes)
+	$(PNPM) run build
+
+.PHONY: publish
+publish: ## Publish to npm by hand with the token in NPM_TOKEN: only the version that makes the name exist (README, "Releasing"). ARGS=--dry-run stops before publishing
+	$(host_only)
+	@test -n "$$NPM_TOKEN" || { echo "set NPM_TOKEN to an npm access token that may publish @yamat47/pylon" >&2; exit 1; }
+	@# Everything the release workflow checks runs first, and pnpm itself refuses anything but a
+	@# clean main that has what the remote has. The token goes into the settings of a container
+	@# that is thrown away, never into a file here.
+	$(COMPOSE) run --rm -e NPM_TOKEN workspace sh -c \
+		'pnpm config set "//registry.npmjs.org/:_authToken" "$$NPM_TOKEN" >/dev/null && pnpm run check:package && pnpm publish $(ARGS)'
+
 .PHONY: tokens
 tokens: ## Write src/tokens.css from system/tokens.json (after editing the tokens)
 	$(PNPM) run tokens
@@ -66,7 +80,7 @@ test: ## Run the unit tests (node --test)
 	$(PNPM) run test
 
 .PHONY: check
-check: ## Typecheck, lint, test and build Storybook (what CI runs, minus zizmor)
+check: ## Everything CI checks, minus zizmor on the workflows
 	$(PNPM) run check
 
 .PHONY: pnpm

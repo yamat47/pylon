@@ -1,22 +1,39 @@
 {
   "name": "@yamat47/pylon",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "description": "Design system for blog.yamat47.me and my portfolio: design tokens and React components",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yamat47/pylon.git"
   },
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "tokens": "node scripts/tokens.ts",
     "storybook": "storybook dev --port 6006 --host 0.0.0.0 --no-open --ci",
-    "storybook:build": "storybook build --output-dir dist/storybook",
+    "storybook:build": "storybook build",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && cp src/*.css dist/",
     "typecheck": "tsc",
     "lint": "biome check --error-on-warnings .",
     "lint:fix": "biome check --write .",
     "test": "node --test \"scripts/**/*.test.ts\" \"src/**/*.test.ts\"",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run storybook:build"
+    "test:package": "tsc -p scripts/consumer && node --test scripts/package.smoke.ts",
+    "check": "pnpm run check:package && pnpm run storybook:build",
+    "check:package": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run test:package"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -31,12 +48,16 @@
     "@storybook/react-vite": "^10.6.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "storybook": "^10.6.5",
     "typescript": "~7.0.2",
     "vite": "^8.3.5"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "packageManager": "pnpm@11.8.0"
 }

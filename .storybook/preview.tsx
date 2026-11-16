@@ -1,7 +1,8 @@
 import type { Decorator, Preview } from "@storybook/react-vite";
 import { type ReactNode, useEffect } from "react";
-// The package's own entry: Storybook loads the fonts and the stylesheets as a site does.
-import "../src/index.ts";
+// The package's own stylesheet: Storybook loads the fonts, the tokens and the components as a site
+// does.
+import "../src/styles.css";
 import { THEMES, type Theme } from "../scripts/tokens-css.ts";
 
 // The sites are in Japanese, and the browser breaks lines by the page's language.

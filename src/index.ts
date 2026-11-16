@@ -1,10 +1,8 @@
 // The design system's surface. A component is part of it when it is exported here and has a
 // guideline (`<Name>.md`) and stories (`<Name>.stories.tsx`) beside it; a test checks that
-// (index.test.ts). Importing this file brings the fonts and both stylesheets, so one import gives a
-// page the look.
-import "./fonts.css";
-import "./tokens.css";
-import "./components.css";
+// (index.test.ts). The look itself is the stylesheet, which a site loads beside this
+// (`@yamat47/pylon/styles.css`): what is published is plain JavaScript that imports no CSS, so that
+// anything able to run JavaScript can render the components.
 
 export { IndexList } from "./IndexList.tsx";
 export { LinkCard } from "./LinkCard.tsx";

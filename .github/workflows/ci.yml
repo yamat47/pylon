@@ -46,6 +46,14 @@ jobs:
       - name: Test (node --test)
         run: pnpm run test
 
+      # What a release publishes, and what a site would get from it: the built components are
+      # found by the package's own name and rendered to HTML.
+      - name: Build the package
+        run: pnpm run build
+
+      - name: Test the built package
+        run: pnpm run test:package
+
       # No story is rendered here: the build only shows that every component and story compiles.
       - name: Build Storybook
         run: pnpm run storybook:build

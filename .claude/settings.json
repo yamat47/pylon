@@ -22,6 +22,7 @@
       "Edit(.tmp/**)"
     ],
     "deny": [
+      "Bash(make publish:*)",
       "Bash(pnpm:*)",
       "Bash(npm:*)",
       "Bash(npx:*)",

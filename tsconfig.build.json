@@ -1,0 +1,18 @@
+{
+  // What the package is built from: the entry and everything it imports, which leaves out the
+  // tests, the stories and the fixtures. `tsc` writes the JavaScript and the types into dist/.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    // The sources import each other as `./Text.tsx`; the JavaScript that is published says
+    // `./Text.js`. The types keep the source's name, which TypeScript reads as the `.d.ts` beside
+    // it (scripts/consumer checks that a site's TypeScript does).
+    "rewriteRelativeImportExtensions": true,
+    // Nothing that is built imports a stylesheet or a guideline, so Vite's types are not needed.
+    "types": []
+  },
+  "include": ["src/index.ts"]
+}

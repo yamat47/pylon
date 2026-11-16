@@ -1,0 +1,76 @@
+/* Generated from system/tokens.json by scripts/tokens.ts. Edit the tokens, then run `make tokens`. */
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --width-gutter: 1.5rem;
+  --width-measure: 42.5rem;
+  --width-page: 60rem;
+  --radius-sm: 4px;
+  --stroke-hairline: 1px;
+  --stroke-underline: 2px;
+  --font-sans: "Inter", "Noto Sans JP", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --text-title: 700 1.75rem/1.45 var(--font-sans);
+  --text-heading: 700 1.25rem/1.5 var(--font-sans);
+  --text-entry: 500 1.125rem/1.6 var(--font-sans);
+  --text-body: 400 1rem/1.9 var(--font-sans);
+  --text-small: 400 0.875rem/1.5 var(--font-sans);
+  --text-caption: 400 0.8125rem/1.5 var(--font-sans);
+  --text-label: 600 0.875rem/1.5 var(--font-sans);
+  --text-site: 600 1rem/1.5 var(--font-sans);
+  --text-code: 400 0.875rem/1.6 var(--font-mono);
+}
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f2f2f2;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #666666;
+  --color-border: #e5e5e5;
+  --color-accent: #e8590c;
+  --color-accent-ink: #c2410c;
+  --color-mark: #ffe3d1;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-surface: #111111;
+  --color-surface-sunken: #1e1e1e;
+  --color-ink: #ededed;
+  --color-ink-muted: #a3a3a3;
+  --color-border: #2e2e2e;
+  --color-accent: #ff7a33;
+  --color-accent-ink: #ff7a33;
+  --color-mark: #5a2a0e;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-surface: #111111;
+    --color-surface-sunken: #1e1e1e;
+    --color-ink: #ededed;
+    --color-ink-muted: #a3a3a3;
+    --color-border: #2e2e2e;
+    --color-accent: #ff7a33;
+    --color-accent-ink: #ff7a33;
+    --color-mark: #5a2a0e;
+  }
+}
+.text-title { font: var(--text-title); }
+.text-heading { font: var(--text-heading); }
+.text-entry { font: var(--text-entry); }
+.text-body { font: var(--text-body); }
+.text-small { font: var(--text-small); }
+.text-caption { font: var(--text-caption); }
+.text-label { font: var(--text-label); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.text-site { font: var(--text-site); letter-spacing: 0.01em; }
+.text-code { font: var(--text-code); }

@@ -1,0 +1,47 @@
+# Policy: always follow the latest (including majors).
+# GitHub Actions are out of scope because github-toolkit is referenced at @main.
+# The skills in .claude/skills/ are also out of Dependabot's scope; the update-skills workflow plays the same role.
+#  - minor / patch of development dependencies: one PR (less noise)
+#  - major: individual PRs
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    # Also raise the range specified in package.json itself to the latest (not just follow the lockfile)
+    versioning-strategy: increase
+    # Wait 7 days after publication before bumping. pnpm 11 does not install versions published less than
+    # a day ago (minimumReleaseAge), so a PR arriving before that fails install. 7 days is the length zizmor
+    # requires (dependabot-cooldown) to avoid the period right after publication, when withdrawals and
+    # replacements are common
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore(deps)
+      prefix-development: chore(deps-dev)
+    groups:
+      dev-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Its major is the major of Node, so it is raised by hand in the pull request that bumps
+      # Node (the docker entry below; docker/Dockerfile lists what else changes there). Types for
+      # a newer Node would let code use what the runtime does not have.
+      - dependency-name: "@types/node"
+        update-types:
+          - version-update:semver-major
+
+  # Base of the development image (node:<major>-<debian>-slim)
+  - package-ecosystem: docker
+    directory: /docker
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore(deps-dev)

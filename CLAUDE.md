@@ -3,8 +3,48 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-Nothing is built yet. This file records what is decided, so that the first pull requests start from it. Replace the
-sections below with how the repository really works as it takes shape.
+So far it holds the tokens and the toolchain. Components, the release to npm and the copy on Claude Design are still
+to come; "What is decided" and "Not decided yet" below say where they are headed.
+
+## Layout
+
+| Path | Contents |
+|---|---|
+| `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, `sample`, the empty `shadow`) |
+| `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
+| `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), and the contrast calculation the tests use |
+| `docker/` | Development image and compose |
+| `Makefile` | Entry point for development commands |
+
+## Always run commands through make
+
+Node and pnpm are not installed on the host. The toolchain exists only inside the Docker container, and the `Makefile`
+invokes it with `docker compose -f docker/compose.yaml run`.
+**Do not run `pnpm` `npm` `npx` `node` `tsc` `biome` directly on the host** (`permissions.deny` in
+`.claude/settings.json` rejects them).
+
+| Goal | Command |
+|---|---|
+| Typecheck, lint and test in one go | `make check` (CI runs the same, plus zizmor on the workflows) |
+| Type check / lint / auto-fix / test | `make typecheck` / `make lint` / `make fix` / `make test` |
+| Write `src/tokens.css` after editing the tokens | `make tokens` |
+| Add or update dependencies | `make pnpm ARGS="add -D <pkg>"` (the lockfile is also updated on the host) |
+| First run, or after changing the Dockerfile | `make setup` |
+
+## Rules that are easy to break
+
+- **A token is edited in `system/tokens.json`, never in `src/tokens.css`.** Run `make tokens` after an edit and commit
+  both files; a test fails when they disagree
+- **Text keeps a contrast of 4.5:1 against the surface it sits on, in both themes.** `scripts/tokens.test.ts` checks
+  the pairs that are used together, and fails for a color that is in no pair and is not named there as decoration
+- **A text style is used whole.** A component puts the style's class on an element (`text-heading`); a stylesheet
+  that cannot, such as the one for a post's rendered Markdown, sets `font: var(--text-heading)`. Neither writes a
+  size, a weight or a line height
+- **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
+  read to choose it, so a token without a use is not added (a test refuses an empty one)
+- **Keep dependencies few.** Everything here is also upkeep for the sites that install the package
+- Tests run on Node's own test runner (`node --test`, files named `*.test.ts` beside what they test), and Node runs
+  the scripts as TypeScript by stripping the types, so a module imports its neighbours with the `.ts` extension
 
 ## What is decided
 
@@ -32,26 +72,16 @@ Chosen on 2026-11-15 from drawings of the blog's top page and of a post.
   centered column of text about 680px wide, under a header and above a footer that are 960px wide on every page
 - Dates are numerals (`2025.02.13`)
 
-The colors the drawings used, as starting values for the tokens:
-
-| Token | Light | Dark |
-|---|---|---|
-| Surface | `#FFFFFF` | `#111111` |
-| Ink | `#1A1A1A` | `#EDEDED` |
-| Muted ink | `#666666` | `#A3A3A3` |
-| Border | `#E5E5E5` | `#2E2E2E` |
-| Accent, as a mark or an underline | `#E8590C` | `#FF7A33` |
-| Accent, as text | `#C2410C` | `#FF7A33` |
-
-Text keeps a contrast of 4.5:1 or more against its surface, which is why the accent has a darker value for text on
-the light surface.
+The values are in `system/tokens.json`. The accent has two: the orange itself for an underline or a mark, and a
+darker one for text on the light surface, where the orange is too pale to read.
 
 ## Not decided yet
 
 - How the fonts reach a reader. Noto Sans JP is large; the options are files served by each site from this package,
-  or Google Fonts, which would make every visit a request to Google
-- The toolchain, and where components are looked at while they are developed
-- Which components come first
+  or Google Fonts, which would make every visit a request to Google. Until then the font stack ends in the system's
+  gothic
+- Which components come first. They will be looked at in Storybook while they are developed, which is not set up yet
+- The colors of highlighted code
 
 ## Where the conventions live
 

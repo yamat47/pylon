@@ -69,6 +69,11 @@ export const postBody = (
   </>
 );
 
+// What stands in for an embedded tweet, which the other site's script draws in a frame: a rounded
+// block on a page that says nothing of its color scheme. The colors are that site's, not tokens.
+const embed =
+  '<body style="margin:0"><p style="margin:0;padding:16px;border-radius:16px;background:#15202b;color:#f7f9f9;font:15px/1.4 sans-serif">みんなは、どんな刹那を生きてるの...？（唐突）</p></body>';
+
 // What else a post can hold, each piece from a different post. They do not read as one text.
 export const otherBlocks = (
   <>
@@ -118,6 +123,7 @@ export const otherBlocks = (
     <pre>
       <code>make check</code>
     </pre>
+    <iframe title="埋め込まれたツイート" srcDoc={embed} width="100%" height="53" frameBorder="0" />
   </>
 );
 

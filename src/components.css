@@ -366,6 +366,16 @@ a:hover {
   background: none;
 }
 
+/*
+ * A frame from another site, such as an embedded tweet, says nothing of its color scheme, so to
+ * the browser it is a light page whatever it draws. On the dark page the browser backs such a
+ * frame with an opaque surface, which shows as light slivers at the frame's rounded corners; said
+ * to be light as well, the frame gets no backing.
+ */
+:where(.py-prose) iframe {
+  color-scheme: light;
+}
+
 .py-prose > * {
   margin-block: 0;
 }

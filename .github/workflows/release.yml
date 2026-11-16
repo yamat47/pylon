@@ -1,0 +1,98 @@
+# Pushing a tag that starts with v publishes the package to npm as @yamat47/pylon.
+# Publishing cannot be undone, so the workflow publishes only a commit that is on main, and runs the
+# typecheck, the lint, the tests, the build and the test of the built package first.
+# Provenance is attached, so on npm a published version can be traced back to this commit of this workflow.
+#
+# Authentication uses npm trusted publishing (OIDC) and holds no token. In the package settings on npmjs.com,
+# this repository, this file name, and the release environment are registered as the trusted publisher
+# (README.md, "Releasing").
+#
+# Actions are pinned by SHA as a rule, but github-toolkit is the one exception and tracks @main directly
+# (see the comment in ci.yml).
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+# One release at a time, whatever the tag, and none is stopped halfway: two tags pushed together
+# are published one after the other, so that the later one is what npm calls the latest.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: publish to npm
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    # Declared in yamat47/infra-github. The trusted publisher on npm is bound to it.
+    environment: release
+    permissions:
+      contents: read
+      id-token: write # Proves identity to npm via OIDC and signs the provenance
+    steps:
+      - name: Checkout
+        uses: yamat47/github-toolkit/actions/checkout@main
+        with:
+          persist-credentials: false
+          # The whole history, to tell whether the tagged commit is on main
+          fetch-depth: 0
+
+      # A tag can be put on any commit. Only what went through a pull request is published.
+      - name: Check that the tagged commit is on main
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::the tagged commit $GITHUB_SHA is not on main"
+            exit 1
+          fi
+
+      # pnpm and Node are set up one by one, and not with the toolkit's setup-node-with-pnpm as in
+      # ci.yml, because that one restores the dependency cache: what is published is built from a
+      # fresh install, never from a cache another run wrote.
+      - name: Setup pnpm
+        # The version is read from packageManager in package.json.
+        uses: yamat47/github-toolkit/actions/setup-pnpm@main
+
+      - name: Setup Node.js
+        uses: yamat47/github-toolkit/actions/setup-node@main
+        with:
+          node-version-file: .node-version
+          package-manager-cache: "false"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check that the tag matches package.json
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="v$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$version" ]; then
+            echo "::error::tag $TAG does not match package.json version $version"
+            exit 1
+          fi
+
+      - name: Typecheck (tsc)
+        run: pnpm run typecheck
+
+      - name: Lint (Biome)
+        run: pnpm run lint
+
+      - name: Test (node --test)
+        run: pnpm run test
+
+      - name: Build the package
+        run: pnpm run build
+
+      - name: Test the built package
+        run: pnpm run test:package
+
+      - name: Publish
+        # access is in publishConfig in package.json. Provenance is asked for here, as a flag pnpm
+        # reads, and not there, so that the by-hand publish (make publish), which has none to give,
+        # is not refused. A tag checkout is a detached HEAD, so skip the branch check
+        run: pnpm publish --provenance --no-git-checks

@@ -81,7 +81,7 @@ a:hover {
 
 .py-page-main-text {
   max-width: var(--width-measure);
-  padding-block-start: var(--space-16);
+  padding-block-start: var(--space-12);
 }
 
 /* SiteHeader: the site's name at the start, the navigation at the end, a rule under both. */
@@ -91,7 +91,7 @@ a:hover {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-2) var(--space-6);
-  padding-block: var(--space-12) var(--space-10);
+  padding-block: var(--space-12) var(--space-6);
   border-block-end: var(--stroke-hairline) solid var(--color-border);
 }
 

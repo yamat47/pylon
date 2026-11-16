@@ -38,6 +38,11 @@ a:hover {
   text-decoration-line: none;
 }
 
+/* A title: where the browser can, Japanese breaks between phrases and not inside a word. */
+.py-phrases {
+  word-break: auto-phrase;
+}
+
 /* What stands beside the text rather than being it: a date, a label, a caption. */
 .py-muted {
   color: var(--color-ink-muted);
@@ -135,7 +140,207 @@ a:hover {
   column-gap: var(--space-4);
 }
 
-.py-index-list-title {
-  /* Where the browser can, a Japanese title breaks between phrases and not inside a word. */
-  word-break: auto-phrase;
+/*
+ * LinkCard: a link shown as a card. The title, the description and the site in a column, and the
+ * thumbnail at the end when there is one.
+ */
+.py-link-card {
+  /* The width of the thumbnail, and the most of the card it may take: on a phone the full width
+     would leave the text a few characters a line. */
+  --thumbnail: min(11rem, 35%);
+
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: var(--stroke-hairline) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* The whole card is the link, so the accent goes to its edge and the text keeps its colors. */
+.py-link-card:hover {
+  border-color: var(--color-accent);
+  color: inherit;
+}
+
+.py-link-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  /* Lets a long address shrink the column instead of pushing the thumbnail out of the card. */
+  min-width: 0;
+  padding: var(--space-4);
+}
+
+/* A title or a description is cut after two lines, so that cards stay near one height. */
+.py-link-card-clamp {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.py-link-card-site {
+  margin-block-start: auto;
+}
+
+/*
+ * The thumbnail fills the end of the card from top to bottom, cropped to fit, so the text decides
+ * how tall a card is and a square image does not make one twice the height of the next. The
+ * least height is for a card whose text is one line.
+ */
+.py-link-card:has(.py-link-card-image) {
+  min-height: 6rem;
+  padding-inline-end: var(--thumbnail);
+}
+
+.py-link-card-image {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: var(--thumbnail);
+  height: 100%;
+  background: var(--color-surface-sunken);
+  object-fit: cover;
+}
+
+/*
+ * A thumbnail that fails to load. Chromium puts a broken-image mark in its place even though the
+ * image has no alternative text; a broken image is also the only one that has an ::after, which
+ * is drawn over the mark and leaves the tint.
+ */
+.py-link-card-image::after {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-sunken);
+  content: "";
+}
+
+/* PageHeader: a page's title, under the day it is dated when it has one. */
+.py-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-block-end: var(--space-12);
+}
+
+/*
+ * Prose: the blocks of a text, one after another. Most of them come out of a site's Markdown, so
+ * they carry no class and are styled by what they are.
+ *
+ * How a block looks is said with :where, which gives a rule the weight of the element alone: a
+ * component placed in a Prose keeps its own look with a single class. The space between blocks is
+ * said at full weight, because it is the Prose's to set whatever the block is.
+ */
+:where(.py-prose) h2 {
+  font: var(--text-heading);
+}
+
+:where(.py-prose) h3 {
+  font: var(--text-subheading);
+}
+
+:where(.py-prose) h4 {
+  font: var(--text-minor-heading);
+}
+
+:where(.py-prose) :is(ul, ol) {
+  /* Room for a marker, at any text size. */
+  padding-inline-start: 1.4em;
+}
+
+:where(.py-prose) blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-4);
+  border-inline-start: var(--stroke-underline) solid var(--color-border);
+  color: var(--color-ink-muted);
+}
+
+:where(.py-prose) img {
+  max-width: 100%;
+  height: auto;
+}
+
+:where(.py-prose) figure {
+  margin-inline: 0;
+}
+
+:where(.py-prose) figure img {
+  display: block;
+}
+
+:where(.py-prose) figcaption {
+  color: var(--color-ink-muted);
+  font: var(--text-small);
+}
+
+:where(.py-prose) code {
+  /* A little room inside the tint, in proportion to the code's own size. */
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  font: var(--text-code);
+}
+
+:where(.py-prose) pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+}
+
+/* In a block the block is the tint. */
+:where(.py-prose) pre code {
+  padding: 0;
+  background: none;
+}
+
+.py-prose > * {
+  margin-block: 0;
+}
+
+.py-prose > * + * {
+  margin-block-start: var(--space-6);
+}
+
+/* A heading stands away from what it ends and close to what it starts. */
+.py-prose > * + h2 {
+  margin-block-start: var(--space-14);
+}
+
+.py-prose > * + h3 {
+  margin-block-start: var(--space-10);
+}
+
+.py-prose > * + h4 {
+  margin-block-start: var(--space-8);
+}
+
+.py-prose > :is(h2, h3, h4) + * {
+  margin-block-start: var(--space-4);
+}
+
+.py-prose blockquote > * {
+  margin-block: 0;
+}
+
+.py-prose blockquote > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.py-prose li + li,
+.py-prose li > :is(ul, ol) {
+  margin-block-start: var(--space-2);
+}
+
+.py-prose figcaption {
+  margin-block-start: var(--space-2);
+}
+
+/* A link card stands a little further from the text around it than a paragraph does. */
+.py-prose > * + .py-link-card,
+.py-prose > .py-link-card + * {
+  margin-block-start: var(--space-8);
 }

@@ -5,9 +5,12 @@ import "./tokens.css";
 import "./components.css";
 
 export { IndexList } from "./IndexList.tsx";
+export { LinkCard } from "./LinkCard.tsx";
 export { LinkList } from "./LinkList.tsx";
 export { Page } from "./Page.tsx";
+export { PageHeader } from "./PageHeader.tsx";
 export { PostIndex } from "./PostIndex.tsx";
+export { Prose } from "./Prose.tsx";
 export type { IndexedPost } from "./post-index.ts";
 export { SiteFooter } from "./SiteFooter.tsx";
 export { SiteHeader } from "./SiteHeader.tsx";

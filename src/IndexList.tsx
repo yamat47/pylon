@@ -23,7 +23,7 @@ export function IndexList({ groups }: IndexListProps) {
                     {item.figure}
                   </time>
                 )}
-                <a className="py-index-list-title py-plain-link text-entry" href={item.href}>
+                <a className="py-plain-link py-phrases text-entry" href={item.href}>
                   {item.title}
                 </a>
               </li>

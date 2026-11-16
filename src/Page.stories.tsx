@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { footerLinks, nav, post, posts, site } from "./fixtures.ts";
+import { postBody } from "./fixture-texts.tsx";
+import { footerLinks, nav, posts, privacy, site, splittingStories } from "./fixtures.ts";
 import readme from "./Page.md?raw";
 import { Page } from "./Page.tsx";
+import { PageHeader } from "./PageHeader.tsx";
 import { PostIndex } from "./PostIndex.tsx";
+import { Prose } from "./Prose.tsx";
 import { SiteFooter } from "./SiteFooter.tsx";
 import { SiteHeader } from "./SiteHeader.tsx";
-import { Text } from "./Text.tsx";
 
 const meta = {
   // First in the sidebar: a page is where the components are seen together.
@@ -27,12 +29,33 @@ export const TopPage: Story = {
   },
 };
 
-// A column to read, as a post has. What a post is made of, and the space between its parts, comes
-// with its own components.
-export const TextPage: Story = {
+// A post: its title under its date, then its text, in a column to read.
+export const PostPage: Story = {
   args: {
     width: "text",
     header: <SiteHeader {...site} nav={nav} />,
-    children: <Text>{post.lead}</Text>,
+    children: (
+      <article>
+        <PageHeader title={splittingStories.title} date={splittingStories.date} />
+        <Prose>{postBody}</Prose>
+      </article>
+    ),
+  },
+};
+
+// A page with a title and no date, as the privacy policy is.
+export const TitledPage: Story = {
+  args: {
+    width: "text",
+    header: <SiteHeader {...site} nav={nav} />,
+    children: (
+      <>
+        <PageHeader title={privacy.title} />
+        <Prose>
+          <h2>{privacy.heading}</h2>
+          <p>{privacy.text}</p>
+        </Prose>
+      </>
+    ),
   },
 };

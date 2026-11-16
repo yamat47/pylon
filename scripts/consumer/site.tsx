@@ -1,7 +1,16 @@
 // What a site writes. It compiles only if the types the package publishes resolve and say what
 // the components take: each `@ts-expect-error` below fails the compilation when the line under it
 // stops being an error, which is what happens when the types do not reach a site at all.
-import { type LinkItem, Page, PostIndex, SiteFooter, SiteHeader } from "@yamat47/pylon";
+import {
+  type DataAttributes,
+  LinkCard,
+  type LinkItem,
+  Page,
+  PageHeader,
+  PostIndex,
+  SiteFooter,
+  SiteHeader,
+} from "@yamat47/pylon";
 import tokens from "@yamat47/pylon/tokens.json" with { type: "json" };
 
 const links: LinkItem[] = [{ label: "Privacy", href: "/privacy" }];
@@ -24,6 +33,30 @@ export const wrongWidth = (
   <Page width="narrow" header={null} footer={null}>
     {null}
   </Page>
+);
+
+// What a site's own tools read off an element is a `data-*` attribute, and nothing else is.
+const skipped: DataAttributes = { "data-search": "skip" };
+export const card = (
+  <LinkCard
+    href="https://example.com/"
+    title="A page"
+    site="example.com"
+    linkAttributes={skipped}
+  />
+);
+export const header = (
+  <PageHeader title="A post" date="2025-02-13" dateAttributes={{ "data-search": "date" }} />
+);
+
+export const classedCard = (
+  // @ts-expect-error a site gives a card no class
+  <LinkCard href="https://example.com/" title="A page" site="example.com" className="mine" />
+);
+
+export const classedDate = (
+  // @ts-expect-error nor a page's date
+  <PageHeader title="A post" date="2025-02-13" dateAttributes={{ className: "mine" }} />
 );
 
 // The tokens as data, read the way a site reads a color for what it draws outside a page.

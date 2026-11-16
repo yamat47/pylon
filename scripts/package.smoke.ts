@@ -48,6 +48,29 @@ test("what another site says is written as text, never as HTML", () => {
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
 });
 
+test("what a site's tools read is written on the card's link and on a page's date", () => {
+  const card = renderToStaticMarkup(
+    createElement(pylon.LinkCard, {
+      href: "https://example.com/",
+      title: "A page",
+      site: "example.com",
+      linkAttributes: { "data-pagefind-ignore": "all" },
+    }),
+  );
+  assert.match(card, /^<a [^>]*data-pagefind-ignore="all"/);
+
+  const header = renderToStaticMarkup(
+    createElement(pylon.PageHeader, {
+      title: "A post",
+      date: "2025-02-13",
+      dateAttributes: { "data-pagefind-meta": "date" },
+    }),
+  );
+  assert.match(header, /<time [^>]*data-pagefind-meta="date"[^>]*>2025\.02\.13<\/time>/);
+  // Nowhere else: the title is not the date.
+  assert.equal(header.match(/data-pagefind-meta/g)?.length, 1);
+});
+
 test("everything the package says a site can import is in the build", async () => {
   const { default: manifest } = await import("../package.json", { with: { type: "json" } });
   const targets = Object.values(manifest.exports).flatMap((target) =>

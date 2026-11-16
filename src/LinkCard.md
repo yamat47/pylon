@@ -6,5 +6,7 @@ The thumbnail is decoration: it has no alternative text, it is loaded when the c
 
 Everything a card shows comes from another site. Pass it as the text it is: the card writes it as text, never as HTML.
 
+`linkAttributes` are `data-*` attributes written on the card's link, for the site's own tools: the mark that keeps a card's words out of a search index (`data-pagefind-ignore="all"`), for one. Anything else in it is left out.
+
 - Do: use it for a link that stands on its own line in a text, to another site or to another page of the same one.
 - Don't: use it for a link inside a sentence.

@@ -18,4 +18,4 @@ export { SiteFooter } from "./SiteFooter.tsx";
 export { SiteHeader } from "./SiteHeader.tsx";
 export { Text } from "./Text.tsx";
 export type { TextVariant } from "./text-variants.ts";
-export type { IndexGroup, IndexItem, LinkItem } from "./types.ts";
+export type { DataAttributes, IndexGroup, IndexItem, LinkItem } from "./types.ts";

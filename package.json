@@ -32,8 +32,7 @@
     "lint:fix": "biome check --write .",
     "test": "node --test \"scripts/**/*.test.ts\" \"src/**/*.test.ts\"",
     "test:package": "tsc -p scripts/consumer && node --test scripts/package.smoke.ts",
-    "check": "pnpm run check:package && pnpm run storybook:build",
-    "check:package": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run test:package"
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run test:package && pnpm run storybook:build"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",

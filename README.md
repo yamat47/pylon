@@ -1,7 +1,7 @@
 # pylon
 
 The design system of [blog.yamat47.me](https://blog.yamat47.me/) and of my portfolio site: design tokens and React
-components, to be published to npm as `@yamat47/pylon`.
+components, published to npm as [`@yamat47/pylon`](https://www.npmjs.com/package/@yamat47/pylon).
 
 It holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
 [`src/tokens.css`](src/tokens.css)) and the components the blog's top page, a post and a page of text are made of
@@ -50,16 +50,8 @@ undone.
 
 The workflow holds no token: npm trusts this repository's `release.yml` in the `release` environment (trusted
 publishing), which is registered in the package's settings on npmjs.com. npm only lets a trusted publisher be
-registered for a package that exists, so the name is made to exist by hand, once, with version 0.0.1:
-
-```sh
-NPM_TOKEN=<a granular access token that may publish @yamat47/pylon> make publish
-```
-
-It runs the same checks as the workflow and refuses anything but a clean `main`. 0.0.1 gets no tag. After it:
-register the trusted publisher on npmjs.com (repository `yamat47/pylon`, workflow `release.yml`, environment
-`release`), revoke the token, and remove `make publish` from the Makefile. The first version a site installs is
-0.1.0, released by its tag like every version after it.
+registered for a package that exists, so 0.0.1 was published by hand to make the name exist. It has no tag. 0.1.0
+is the first version released by its tag, and the first one meant for a site.
 
 ## Skills
 

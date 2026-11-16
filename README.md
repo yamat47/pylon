@@ -4,9 +4,9 @@ The design system of [blog.yamat47.me](https://blog.yamat47.me/) and of my portf
 components, published to npm as [`@yamat47/pylon`](https://www.npmjs.com/package/@yamat47/pylon).
 
 It holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
-[`src/tokens.css`](src/tokens.css)) and the components the blog's top page, a post and a page of text are made of
-([`src/`](src/)), with the two fonts they are set in. What is decided so far, including the look, is in
-[CLAUDE.md](CLAUDE.md).
+[`src/tokens.css`](src/tokens.css)) and the components the blog's pages are made of ([`src/`](src/)): the top page,
+a post, a page of text and the search page, with the two fonts they are set in. What is decided so far, including
+the look, is in [CLAUDE.md](CLAUDE.md).
 
 It is the design of two sites of mine. The package is public so that those sites can install it; it is not meant as
 a library for other projects, and its look may change without notice.
@@ -27,6 +27,9 @@ import "@yamat47/pylon/styles.css";
 
 `styles.css` is the fonts, the tokens and the components' styles in the order they have to load. The page has to
 say it is Japanese (`lang="ja"`) for titles to break between phrases.
+
+The tokens are also there as data, `@yamat47/pylon/tokens.json`, for what is drawn outside a page and cannot read a
+CSS variable, such as the image a shared link shows.
 
 ## Development
 

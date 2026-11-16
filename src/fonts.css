@@ -1,0 +1,16 @@
+/*
+ * The fonts the tokens name, as files the site serves itself: nothing is fetched from another
+ * site when a page is read.
+ *
+ * Each font comes cut into pieces by the characters it covers, and a browser fetches only the
+ * pieces a page uses. For Japanese that is still a real cost: one of the blog's posts takes some
+ * thirty pieces of Noto Sans JP, about 0.6 MB on a first visit, and the rules that describe all
+ * the pieces are about 100 KB of CSS on every page (30 KB compressed). Both are variable fonts:
+ * a piece holds every weight, and is larger than a piece of one weight would be.
+ *
+ * Until a piece arrives the text is set in the next font of the stack, the system's gothic, and
+ * a character neither font has stays in it. Only the upright cuts are loaded: Japanese has no
+ * italic, and Japanese is what the sites are written in.
+ */
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/noto-sans-jp/wght.css";

@@ -34,6 +34,10 @@ updates:
           - react
           - react-dom
           - "@types/react"
+      # The two fonts: a bump of either asks for the same look at Storybook, so they come together.
+      fonts:
+        patterns:
+          - "@fontsource-variable/*"
       dev-dependencies:
         dependency-type: development
         update-types:

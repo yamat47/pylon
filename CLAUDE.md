@@ -3,8 +3,8 @@
 The design system of https://blog.yamat47.me/ and of my portfolio site: design tokens and React components,
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
-So far it holds the tokens, the toolchain and the components of three of the blog's pages: the top page, a post, and
-a page with a title and text such as the privacy policy. The search page, the fonts, the release to npm and the copy
+So far it holds the tokens, the fonts, the toolchain and the components of three of the blog's pages: the top page, a
+post, and a page with a title and text such as the privacy policy. The search page, the release to npm and the copy
 on Claude Design are still to come; "What is decided" and "Not decided yet" below say where they are headed.
 
 ## Layout
@@ -13,6 +13,7 @@ on Claude Design are still to come; "What is decided" and "Not decided yet" belo
 |---|---|
 | `system/tokens.json` | The tokens: every color, text style, spacing, radius and line weight, each with what it is for. The file has the shape Claude Design reads for a design system, which is why it carries fields nothing here reads yet (`version`, `themes`, `fonts`, the empty `shadow`). A style's `sample` is what the stories of `Text` show |
 | `src/tokens.css` | The tokens as CSS variables, with a class for each text style. Generated from `system/tokens.json` and committed |
+| `src/fonts.css` | The two fonts the tokens name, loaded from the packages that carry their files (`@fontsource-variable/*`) |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
 | `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and the text of one post as its Markdown would render it |
@@ -75,6 +76,12 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   args. Stories show Japanese text from `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the sites carry
 - **A token says what it is for.** Its `usage` in `system/tokens.json` is what a component's author and Claude Design
   read to choose it, so a token without a use is not added (a test refuses an empty one)
+- **A font is served by the site, never fetched from another one.** The font files come with the package, through
+  the two `@fontsource-variable` dependencies, and `src/fonts.css` is the only place a font is loaded. A page that
+  reads a font from Google or another host would tell that host about every visit, which the sites' privacy
+  policies do not say. The tokens' font stack starts with the names those packages give their fonts, and a test
+  fails when the two stop agreeing (`src/fonts.test.ts`); a wrong name would otherwise fall through to the
+  system's gothic and look almost right
 - **Keep dependencies few.** Everything here is also upkeep for the sites that install the package
 - Tests run on Node's own test runner (`node --test`, files named `*.test.ts` beside what they test), and Node runs
   the scripts as TypeScript by stripping the types, so a module imports its neighbours with the `.ts` extension
@@ -111,9 +118,8 @@ darker one for text on the light surface, where the orange is too pale to read.
 
 ## Not decided yet
 
-- How the fonts reach a reader. Noto Sans JP is large; the options are files served by each site from this package,
-  or Google Fonts, which would make every visit a request to Google. Until then the font stack ends in the system's
-  gothic
+- How the fonts reach the copy on Claude Design. `type.fonts` in the tokens is empty, and the names in the font
+  stack exist only where `src/fonts.css` is loaded, so until this is settled that copy is set in the system's gothic
 - What the search page is made of: its input, and a result with the found words marked (`color-mark` is waiting
   for it)
 - How a site's Markdown reaches the components. `LinkCard` is a component, and the blog builds its cards inside a

@@ -5,7 +5,9 @@ published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
 So far it holds the tokens, the fonts, the toolchain, the components of the blog's pages (the top page, a post, a
 page with a title and text such as the privacy policy, and the search page), the build that a release publishes,
-and the copy that Claude Design gets. "What is decided" and "Not decided yet" below say where things are headed.
+and the copy that Claude Design gets. The portfolio's look is chosen ("The portfolio's look" below), and its
+tokens and brand book are in; its components are not built yet. "What is decided" and "Not decided yet" below say
+where things are headed.
 
 ## Layout
 
@@ -137,11 +139,37 @@ Chosen on 2026-11-15 from drawings of the blog's top page and of a post.
 - A link is ink-colored with an orange underline. A title in a list of posts has no underline and turns orange under
   the pointer
 - The top page is an index: posts grouped by year, each with its day (`02.13`) beside the title. A post is one
-  centered column of text about 680px wide, under a header and above a footer that are 960px wide on every page
+  centered column of text about 680px wide, under a header that is 960px wide on every page, and above the footer:
+  a band in the dark theme across the window, with its content 960px wide
 - Dates are numerals (`2025.02.13`)
 
 The values are in `system/tokens.json`. The accent has two: the orange itself for an underline or a mark, and a
 darker one for text on the light surface, where the orange is too pale to read.
+
+## The portfolio's look
+
+Chosen on 2026-11-22 from a canvas of the portfolio's pages drawn with these tokens. The canvas also holds a
+prototype that moves between the pages and the two languages, on its page "プロトタイプ":
+https://claude.ai/artifact/R38L2jgQPruxcERpABEKaX
+
+- A page is a profile column beside the content, not the blog's header: the person's photo, name and line, the
+  pages, and the links to elsewhere. The column stands still while the content scrolls, and stacks above it on a
+  narrow window
+- English is the default (`/`) and Japanese is at `/ja/`. A title stays in its author's language. English text is
+  set in the `-latin` text styles, on shorter lines than Japanese needs. They are styles of their own rather than
+  a line height that follows `lang`, so that `tokens.json` keeps the shape Claude Design reads and each style
+  stays one class. A component learns the page's language from a prop: the portfolio page's frame takes the
+  page's `lang` and sets its text in `text-body-latin` for English, and a component that sets `text-body` or
+  `text-lead` itself takes the language the same way
+- The lists differ by what leads them. Projects are a grid of screenshots. Talks open with the newest talk and its
+  first slide, and list the rest by date, the year small over a large day. Writing is titles and dates only,
+  grouped by year, without where each was published. Career runs each company's roles along a line, in the accent
+  beside the roles that have not ended
+- An about page tells work, open source, American football and games, with photographs. The top page's
+  introduction links to it
+- Both sites end with the same footer: the name and line, groups of links (the site's pages, elsewhere, the
+  language) and the copyright, on a band in the dark theme. It replaces the blog's quiet footer and is the one
+  band of color the look allows
 
 ## Not decided yet
 

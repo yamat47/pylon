@@ -1,0 +1,23 @@
+<!-- @dsCard group="Text" width=728 subtitle="Japanese, English, Without More" -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Introduction</title>
+<style>#root { display: grid; gap: var(--space-12); padding: var(--space-6); } #root > div { min-width: 0; }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+document.documentElement.lang = "ja";
+var P = window.Pylon, h = React.createElement;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  h(React.Fragment, null,
+    h("div", null, h(P.Introduction, { "lang": "ja", "more": { "label": "くわしい自己紹介", "href": "/ja/about/" } }, "東京のワンキャリアで、エンジニア・デザイナー・プロダクトマネージャーあわせて約50名、12チームのプロダクト組織を率いています。Ruby on Rails のエンジニアとしてキャリアを始め、エンジニアリングマネジメントを経て、いまはプロダクト戦略と全社の意思決定に多くの時間を使っています。個人ではオープンソースの開発も続けています。")),
+    h("div", null, h(P.Introduction, { "lang": "en", "more": { "label": "More about me", "href": "/about/" } }, "I lead a product organization of about 50 engineers, designers and product managers across 12 teams at ONE CAREER Inc. in Tokyo. I started out as a Ruby on Rails engineer, moved into engineering management, and now spend most of my time on product strategy and company-wide decisions. I still write open source on the side.")),
+    h("div", null, h(P.Introduction, { "lang": "en", "more": undefined }, "I'm Takuya Yamaguchi. I lead a product organization at ONE CAREER Inc. in Tokyo, write open source on the side, and coach American football."))
+  )
+);
+</script>
+</body>
+</html>

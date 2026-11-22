@@ -12,6 +12,7 @@
   --space-24: 6rem;
   --width-gutter: 1.5rem;
   --width-measure: 42.5rem;
+  --width-aside: 14rem;
   --width-page: 60rem;
   --radius-sm: 4px;
   --stroke-hairline: 1px;
@@ -23,7 +24,10 @@
   --text-subheading: 700 1.125rem/1.6 var(--font-sans);
   --text-minor-heading: 700 1rem/1.9 var(--font-sans);
   --text-entry: 500 1.125rem/1.6 var(--font-sans);
+  --text-lead: 400 1.125rem/1.9 var(--font-sans);
+  --text-lead-latin: 400 1.125rem/1.75 var(--font-sans);
   --text-body: 400 1rem/1.9 var(--font-sans);
+  --text-body-latin: 400 1rem/1.7 var(--font-sans);
   --text-small: 400 0.875rem/1.5 var(--font-sans);
   --text-caption: 400 0.8125rem/1.5 var(--font-sans);
   --text-label: 600 0.875rem/1.5 var(--font-sans);
@@ -36,6 +40,7 @@
   color-scheme: light;
   --color-surface: #ffffff;
   --color-surface-sunken: #f2f2f2;
+  --color-surface-footer: #111111;
   --color-ink: #1a1a1a;
   --color-ink-muted: #666666;
   --color-border: #e5e5e5;
@@ -47,6 +52,7 @@
   color-scheme: dark;
   --color-surface: #111111;
   --color-surface-sunken: #1e1e1e;
+  --color-surface-footer: #1e1e1e;
   --color-ink: #ededed;
   --color-ink-muted: #a3a3a3;
   --color-border: #2e2e2e;
@@ -59,6 +65,7 @@
     color-scheme: dark;
     --color-surface: #111111;
     --color-surface-sunken: #1e1e1e;
+    --color-surface-footer: #1e1e1e;
     --color-ink: #ededed;
     --color-ink-muted: #a3a3a3;
     --color-border: #2e2e2e;
@@ -72,7 +79,10 @@
 .text-subheading { font: var(--text-subheading); }
 .text-minor-heading { font: var(--text-minor-heading); }
 .text-entry { font: var(--text-entry); }
+.text-lead { font: var(--text-lead); }
+.text-lead-latin { font: var(--text-lead-latin); }
 .text-body { font: var(--text-body); }
+.text-body-latin { font: var(--text-body-latin); }
 .text-small { font: var(--text-small); }
 .text-caption { font: var(--text-caption); }
 .text-label { font: var(--text-label); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }

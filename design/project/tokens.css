@@ -2,6 +2,7 @@
 :root, [data-theme="light"] {
   --color-surface: #ffffff;
   --color-surface-sunken: #f2f2f2;
+  --color-surface-footer: #111111;
   --color-ink: #1a1a1a;
   --color-ink-muted: #666666;
   --color-border: #e5e5e5;
@@ -12,6 +13,7 @@
 [data-theme="dark"] {
   --color-surface: #111111;
   --color-surface-sunken: #1e1e1e;
+  --color-surface-footer: #1e1e1e;
   --color-ink: #ededed;
   --color-ink-muted: #a3a3a3;
   --color-border: #2e2e2e;
@@ -32,6 +34,7 @@
   --space-24: 6rem;
   --width-gutter: 1.5rem;
   --width-measure: 42.5rem;
+  --width-aside: 14rem;
   --width-page: 60rem;
   --radius-sm: 4px;
   --stroke-hairline: 1px;
@@ -44,7 +47,10 @@
 .text-subheading { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 700; }
 .text-minor-heading { font-family: var(--font-sans); font-size: 1rem; line-height: 1.9; font-weight: 700; }
 .text-entry { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 500; }
+.text-lead { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.9; font-weight: 400; }
+.text-lead-latin { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.75; font-weight: 400; }
 .text-body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.9; font-weight: 400; }
+.text-body-latin { font-family: var(--font-sans); font-size: 1rem; line-height: 1.7; font-weight: 400; }
 .text-small { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; font-weight: 400; }
 .text-caption { font-family: var(--font-sans); font-size: 0.8125rem; line-height: 1.5; font-weight: 400; }
 .text-label { font-family: var(--font-sans); font-size: 0.875rem; line-height: 1.5; font-weight: 600; letter-spacing: 0.04em; }

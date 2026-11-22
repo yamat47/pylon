@@ -63,13 +63,35 @@ a:hover {
   list-style: none;
 }
 
-/* Page: the header, the content and the footer, centered and kept off the window's edges. */
-.py-page {
+/*
+ * LinkList, stacked: links one under another, known to be links by where they are. The current one
+ * keeps its underline (the component leaves it without py-plain-link).
+ */
+.py-link-list-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+/*
+ * The frame of a page, Page or ProfilePage: what is on the page kept off the window's edges, and
+ * the footer under it across the window. A short page still has its footer at the foot of the
+ * window.
+ */
+.py-frame {
+  display: flex;
+  flex-direction: column;
+  /* The window's height. */
+  min-height: 100vh;
+}
+
+.py-frame-body {
+  flex: 1 0 auto;
   padding-inline: var(--width-gutter);
 }
 
+/* Page: the header and the content, centered. */
 .py-site-header,
-.py-site-footer,
 .py-page-main {
   max-width: var(--width-page);
   margin-inline: auto;
@@ -95,9 +117,48 @@ a:hover {
   border-block-end: var(--stroke-hairline) solid var(--color-border);
 }
 
-/* SiteFooter: a rule, then the links every page carries. */
+/*
+ * SiteFooter: a band across the window. Its color is the page's theme's; its content sets the dark
+ * theme on itself (data-theme), and is drawn in that theme's ink.
+ */
 .py-site-footer {
-  padding-block: var(--space-6) var(--space-14);
+  padding-inline: var(--width-gutter);
+  background: var(--color-surface-footer);
+}
+
+.py-site-footer-content {
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-block: var(--space-14) var(--space-10);
+  color: var(--color-ink);
+}
+
+/* The name where a ProfileAside stands, the groups where the content stands. */
+.py-site-footer-columns {
+  display: grid;
+  gap: var(--space-10) var(--space-14);
+}
+
+.py-site-footer-name,
+.py-site-footer-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.py-site-footer-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-12);
+}
+
+.py-site-footer-group {
+  gap: var(--space-3);
+}
+
+.py-site-footer-copyright {
+  margin-block-start: var(--space-14);
+  padding-block-start: var(--space-6);
   border-block-start: var(--stroke-hairline) solid var(--color-border);
 }
 
@@ -295,6 +356,13 @@ a:hover {
   margin-block-end: var(--space-12);
 }
 
+/* A list's title, with how many things it lists beside it. */
+.py-page-header-counted {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
 /*
  * Prose: the blocks of a text, one after another. Most of them come out of a site's Markdown, so
  * they carry no class and are styled by what they are.
@@ -330,6 +398,9 @@ a:hover {
 :where(.py-prose) img {
   max-width: 100%;
   height: auto;
+  border-radius: var(--radius-sm);
+  /* Where the picture has not come yet, or failed to. */
+  background: var(--color-surface-sunken);
 }
 
 :where(.py-prose) figure {
@@ -422,4 +493,358 @@ a:hover {
 .py-prose > * + .py-link-card,
 .py-prose > .py-link-card + * {
   margin-block-start: var(--space-8);
+}
+
+/*
+ * Picture: as wide as what it is in, in its shape, cropped to fit. The tint is its place while
+ * there is no picture, or the picture fails to load.
+ */
+.py-picture {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  object-fit: cover;
+}
+
+.py-picture-1-1 {
+  aspect-ratio: 1;
+}
+
+.py-picture-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+.py-picture-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.py-picture-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.py-picture-16-10 {
+  aspect-ratio: 16 / 10;
+}
+
+/* A picture that fails to load: drawn over the browser's broken-image mark, as for a LinkCard. */
+img.py-picture::after {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-sunken);
+  content: "";
+}
+
+/*
+ * ProfilePage: the profile column beside the content, which together fill width-page. On a narrow
+ * window the column stacks above the content.
+ */
+.py-profile-page {
+  display: grid;
+  gap: var(--space-12) var(--space-14);
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-block: var(--space-12) var(--space-24);
+}
+
+/* Where the two columns no longer fit side by side, the width the brand book names. */
+@media (width >= 48rem) {
+  .py-profile-page {
+    grid-template-columns: var(--width-aside) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .py-site-footer-columns {
+    grid-template-columns: var(--width-aside) minmax(0, 1fr);
+  }
+}
+
+/* Written as :not(:first-child) rather than * + *, to weigh as much as the rules after it. */
+.py-profile-page-main > :not(:first-child) {
+  margin-block-start: var(--space-10);
+}
+
+/* The lists of the top page stand well apart, more than anything in one is. */
+.py-profile-page-main > * + .py-section {
+  margin-block-start: var(--space-24);
+}
+
+.py-profile-page-main > .py-about-section + .py-about-section {
+  margin-block-start: var(--space-14);
+}
+
+/* ProfileAside: who the person is, the pages, and under a rule where else they are. */
+.py-profile-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.py-profile-aside-identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.py-profile-aside-photo {
+  /* The photo's own size: small enough that the name stays the first thing read. */
+  width: 6rem;
+}
+
+.py-profile-aside-name {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.py-profile-aside-elsewhere {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block-start: var(--space-6);
+  border-block-start: var(--stroke-hairline) solid var(--color-border);
+}
+
+/* The column stays where it is while the content scrolls, where the two stand side by side. */
+@media (width >= 48rem) {
+  .py-profile-aside {
+    position: sticky;
+    inset-block-start: var(--space-12);
+  }
+}
+
+/* Above the content on a narrow window: the photo beside the name, the pages in a row. */
+@media (width < 48rem) {
+  .py-profile-aside-identity {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .py-profile-aside-photo {
+    /* About the height of the name and its line. */
+    flex: none;
+    width: 3.5rem;
+  }
+
+  .py-profile-aside-pages .py-link-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+  }
+}
+
+/* Section: a heading with the link to the whole at the end of its line, then what it shows. */
+.py-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+}
+
+.py-section > :not(:first-child) {
+  margin-block-start: var(--space-10);
+}
+
+.py-section > .py-section-head + * {
+  margin-block-start: var(--space-6);
+}
+
+/* Introduction: the lead, with a small link under it. */
+.py-introduction {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ProjectGrid: as many columns as fit, a screenshot over each project's name. */
+.py-project-grid {
+  display: grid;
+  /* The narrowest a column gets: a screenshot still worth looking at, and a name on a line. */
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-10) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-project {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.py-project-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-4);
+  margin-block-start: var(--space-3);
+  /* A gem's name is one long word. */
+  overflow-wrap: anywhere;
+}
+
+.py-project > .py-link-list {
+  margin-block-start: var(--space-2);
+}
+
+/* TalkFeature: the newest talk's slide, then when and where, its title and its links. */
+.py-talk-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.py-talk-feature-when {
+  margin-block-start: var(--space-4);
+}
+
+.py-talk-feature > .py-link-list {
+  margin-block-start: var(--space-2);
+}
+
+/* TalkList: each talk's date in a narrow column, the year small over a large day. */
+.py-talk-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-talk {
+  display: grid;
+  /* The column of dates: five characters (10.20) at the size of a heading. */
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--space-6);
+}
+
+.py-talk-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.py-talk-day {
+  /* The shorthand of the text style resets the figures, so a column of days is said here. */
+  font-variant-numeric: tabular-nums;
+}
+
+.py-talk-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.py-talk-body > .py-link-list {
+  margin-block-start: var(--space-1);
+}
+
+/* WritingList: titles over their dates, under their years when grouped. */
+.py-writing-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-writing-list-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.py-writing-years {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+}
+
+.py-writing-year + .py-writing-list {
+  margin-block-start: var(--space-4);
+}
+
+/*
+ * CareerList: rows along a line, a hairline beside what has ended and the accent beside what goes
+ * on. The text stands as far from the edge beside either line.
+ */
+.py-career-row {
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: calc(var(--space-4) + var(--stroke-underline) - var(--stroke-hairline));
+  border-inline-start: var(--stroke-hairline) solid var(--color-border);
+}
+
+.py-career-row-current {
+  padding-inline-start: var(--space-4);
+  border-inline-start: var(--stroke-underline) solid var(--color-accent);
+}
+
+.py-career-brief,
+.py-career-roles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.py-career-brief {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.py-career-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+}
+
+.py-career-company {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-4);
+}
+
+.py-career-roles {
+  margin-block-start: var(--space-6);
+}
+
+/* The line runs on from one role to the next. */
+.py-career-roles > .py-career-row + .py-career-row {
+  padding-block-start: var(--space-8);
+}
+
+.py-career-roles .py-career-row > h3 {
+  margin-block-start: var(--space-1);
+}
+
+.py-career-role-text {
+  margin-block-start: var(--space-2);
+}
+
+/* AboutSection: the heading, the text, photographs side by side, links. */
+.py-about-section-photos {
+  display: grid;
+  /* Two side by side in the column of text, one on a phone. */
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: var(--space-6);
+}
+
+.py-about-section > :not(:first-child) {
+  margin-block-start: var(--space-3);
+}
+
+.py-about-section > .py-about-section-photos,
+.py-about-section > .py-link-list {
+  margin-block-start: var(--space-6);
 }

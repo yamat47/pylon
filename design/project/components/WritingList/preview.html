@@ -1,0 +1,22 @@
+<!-- @dsCard group="Lists" width=728 subtitle="Grouped, Few" -->
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>WritingList</title>
+<style>#root { display: grid; gap: var(--space-12); padding: var(--space-6); } #root > div { min-width: 0; }</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+document.documentElement.lang = "ja";
+var P = window.Pylon, h = React.createElement;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  h(React.Fragment, null,
+    h("div", null, h(P.WritingList, { "articles": [{ "date": "2026-01-01", "href": "https://blog.yamat47.me/entry/2026/01/01/130022", "title": "2025年を振り返ってみる", "lang": undefined }, { "date": "2025-10-14", "href": "https://blog.yamat47.me/entry/2025/10/14/220005", "title": "「絶不調」がつづいていたら気をつけろ、と伝えている", "lang": undefined }, { "date": "2025-09-18", "href": "https://blog.yamat47.me/entry/2025/09/18/083019", "title": "ポストモーテムを意味のあるものにするには？", "lang": undefined }, { "date": "2025-09-07", "href": "https://blog.yamat47.me/entry/2025/09/07/194400", "title": "『龍が如く』のナンバリングを全部プレーした or 実況を観た", "lang": undefined }, { "date": "2025-04-14", "href": "https://blog.yamat47.me/entry/2025/04/14/074406", "title": "結婚をして、式を挙げた", "lang": undefined }, { "date": "2025-02-13", "href": "https://blog.yamat47.me/entry/2025/02/13/192603", "title": "開発のストーリー分割・タスク分割をするときに考えていること", "lang": undefined }, { "date": "2024-12-31", "href": "https://blog.yamat47.me/entry/2024/12/31/174853", "title": "2024年を振り返ってみる", "lang": undefined }, { "date": "2022-12-31", "href": "https://blog.yamat47.me/entry/2022/12/31/165912", "title": "2022年を振り返ってみる（仕事、アメフト、Netflix、推し活、...）", "lang": undefined }, { "date": "2022-11-11", "href": "https://blog.yamat47.me/entry/2022/11/11/204028", "title": "クラッソーネを退職しました", "lang": undefined }], "grouped": true })),
+    h("div", null, h(P.WritingList, { "articles": [{ "date": "2026-01-01", "href": "https://blog.yamat47.me/entry/2026/01/01/130022", "title": "2025年を振り返ってみる", "lang": undefined }, { "date": "2025-10-14", "href": "https://blog.yamat47.me/entry/2025/10/14/220005", "title": "「絶不調」がつづいていたら気をつけろ、と伝えている", "lang": undefined }, { "date": "2025-09-18", "href": "https://blog.yamat47.me/entry/2025/09/18/083019", "title": "ポストモーテムを意味のあるものにするには？", "lang": undefined }, { "date": "2025-09-07", "href": "https://blog.yamat47.me/entry/2025/09/07/194400", "title": "『龍が如く』のナンバリングを全部プレーした or 実況を観た", "lang": undefined }] }))
+  )
+);
+</script>
+</body>
+</html>

@@ -31,6 +31,14 @@ const PAIRS = [
   { on: "color-mark", drawn: "color-ink", least: TEXT },
 ];
 
+// The footer is drawn in the dark theme under a page of either theme, so its text is checked in
+// the dark theme's colors against the footer's band as each theme draws it.
+const FOOTER = "color-surface-footer";
+const ON_FOOTER = [
+  ...INKS.map((ink) => ({ drawn: ink, least: TEXT })),
+  { drawn: "color-accent", least: MARK },
+];
+
 // Colors that tell nothing by themselves, so no contrast is asked of them.
 const DECORATION = ["color-border"];
 
@@ -40,10 +48,19 @@ for (const theme of THEMES) {
       assert.ok(contrast(color(drawn, theme), color(on, theme)) >= least);
     });
   }
+  for (const { drawn, least } of ON_FOOTER) {
+    test(`${drawn} of the dark theme on ${FOOTER} keeps ${least}:1 in ${theme}`, () => {
+      assert.ok(contrast(color(drawn, "dark"), color(FOOTER, theme)) >= least);
+    });
+  }
 }
 
 test("every color is in a pair whose contrast is checked, or is named as decoration", () => {
-  const checked = new Set([...PAIRS.flatMap((pair) => [pair.on, pair.drawn]), ...DECORATION]);
+  const checked = new Set([
+    ...PAIRS.flatMap((pair) => [pair.on, pair.drawn]),
+    FOOTER,
+    ...DECORATION,
+  ]);
   const unchecked = source.color.tokens
     .map((token) => token.name)
     .filter((name) => !checked.has(name));

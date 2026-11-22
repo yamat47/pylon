@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { foundItems, postBody } from "./fixture-texts.tsx";
-import { footerLinks, nav, posts, privacy, search, site, splittingStories } from "./fixtures.ts";
+import { blogFooter, nav, posts, privacy, search, site, splittingStories } from "./fixtures.ts";
 import readme from "./Page.md?raw";
 import { Page } from "./Page.tsx";
 import { PageHeader } from "./PageHeader.tsx";
@@ -16,7 +16,7 @@ const meta = {
   title: "Pages/Page",
   component: Page,
   parameters: { docs: { description: { component: readme } }, card: { frame: "page" } },
-  args: { footer: <SiteFooter links={footerLinks} /> },
+  args: { footer: <SiteFooter {...blogFooter} /> },
 } satisfies Meta<typeof Page>;
 
 export default meta;

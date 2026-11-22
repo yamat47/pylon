@@ -1,4 +1,4 @@
-<!-- @dsCard group="Lists" width=1008 subtitle="One Link, Several Links" -->
+<!-- @dsCard group="Lists" width=1008 subtitle="One Link, Several Links, Stacked" -->
 <!doctype html>
 <html lang="ja">
 <head>
@@ -14,7 +14,8 @@ var P = window.Pylon, h = React.createElement;
 ReactDOM.createRoot(document.getElementById("root")).render(
   h(React.Fragment, null,
     h("div", null, h(P.LinkList, { "links": [{ "label": "プライバシーポリシー", "href": "/privacy" }] })),
-    h("div", null, h(P.LinkList, { "links": [{ "label": "検索", "href": "/search" }, { "label": "プライバシーポリシー", "href": "/privacy" }] }))
+    h("div", null, h(P.LinkList, { "links": [{ "label": "検索", "href": "/search" }, { "label": "プライバシーポリシー", "href": "/privacy" }] })),
+    h("div", null, h(P.LinkList, { "links": [{ "label": "自己紹介", "href": "/ja/about/", "current": false }, { "label": "プロジェクト", "href": "/ja/projects/", "current": true }, { "label": "登壇", "href": "/ja/talks/", "current": false }, { "label": "執筆", "href": "/ja/writing/", "current": false }, { "label": "経歴", "href": "/ja/career/", "current": false }], "stacked": true }))
   )
 );
 </script>

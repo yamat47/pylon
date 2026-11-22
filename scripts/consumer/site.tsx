@@ -20,7 +20,14 @@ export const page = (
   <Page
     width="wide"
     header={<SiteHeader name="A site" href="/" heading />}
-    footer={<SiteFooter links={links} />}
+    footer={
+      <SiteFooter
+        name="A site"
+        href="/"
+        groups={[{ label: "Site", links }]}
+        copyright={{ year: 2026, holder: "Someone" }}
+      />
+    }
   >
     <PostIndex posts={[{ title: "A post", href: "/entry/a", date: "2025-02-13" }]} />
   </Page>

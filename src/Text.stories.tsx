@@ -33,7 +33,14 @@ export const MinorHeading: Story = {
   args: { variant: "minor-heading", as: "h4", children: sample("minor-heading") },
 };
 export const Entry: Story = { args: { variant: "entry", children: sample("entry") } };
+export const Lead: Story = { args: { variant: "lead", children: sample("lead") } };
+export const LeadLatin: Story = {
+  args: { variant: "lead-latin", children: sample("lead-latin") },
+};
 export const Body: Story = { args: { variant: "body", children: sample("body") } };
+export const BodyLatin: Story = {
+  args: { variant: "body-latin", children: sample("body-latin") },
+};
 export const Small: Story = { args: { variant: "small", children: sample("small") } };
 export const Caption: Story = {
   args: { variant: "caption", tone: "muted", children: sample("caption") },

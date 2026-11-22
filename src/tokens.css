@@ -52,7 +52,7 @@
   color-scheme: dark;
   --color-surface: #111111;
   --color-surface-sunken: #1e1e1e;
-  --color-surface-footer: #000000;
+  --color-surface-footer: #1e1e1e;
   --color-ink: #ededed;
   --color-ink-muted: #a3a3a3;
   --color-border: #2e2e2e;
@@ -65,7 +65,7 @@
     color-scheme: dark;
     --color-surface: #111111;
     --color-surface-sunken: #1e1e1e;
-    --color-surface-footer: #000000;
+    --color-surface-footer: #1e1e1e;
     --color-ink: #ededed;
     --color-ink-muted: #a3a3a3;
     --color-border: #2e2e2e;

@@ -15,7 +15,7 @@ pylon is the look of two sites that belong to one person: a blog and a portfolio
 Black, white and greys, plus one orange, in a light and a dark theme. The theme follows the reader's system; there is no switch.
 
 - `color-surface` is the page. `color-surface-sunken` is a block set into it, such as a code block. Nothing else is a surface but the footer: no cards with a fill, no bands of color, no gradients.
-- The footer is the one band. `color-surface-footer` runs across the window under every page of both sites, and what is in it is drawn in the dark theme's colors in either theme.
+- The footer is the one band. `color-surface-footer` runs across the window under every page of both sites, and what is in it is drawn in the dark theme's colors in either theme. Under a light page the band is the dark theme's page; under a dark one it is a step lighter than the page, so that it still reads as a band.
 - Set text in `color-ink`. Set what stands beside the text in `color-ink-muted`: a date, a year, a caption, a link card's description, the words around a search's match, a quote.
 - `color-border` draws the rules between parts of a page and the edge of a link card. It is decoration: never let it be the only sign of something, such as where a field is. A field's edge is `color-ink-muted`.
 - `color-accent` is the one color, and it is for marks, never for areas. On the light surface it is too pale to read, so text in the accent is `color-accent-ink`. "Links and states" below says where each appears.

@@ -27,7 +27,7 @@ export const blogFooter = {
   href: site.href,
   groups: [
     { label: "サイト", links: [...nav, ...footerLinks] },
-    { label: "ほかの場所", links: [{ label: "me.yamat47.me", href: portfolioHome }, x, github] },
+    { label: "リンク", links: [{ label: "me.yamat47.me", href: portfolioHome }, x, github] },
   ],
   copyright: { year: 2026, holder: "山口 拓弥" },
 };
@@ -215,7 +215,7 @@ const en = {
   footer(current?: PortfolioPage) {
     const groups: LinkGroup[] = [
       { label: "Site", links: this.pages(current) },
-      { label: "Elsewhere", links: [x, github, { label: "Blog", href: blogHome }] },
+      { label: "Links", links: [x, github, { label: "Blog", href: blogHome }] },
       {
         label: "Language",
         links: [
@@ -421,7 +421,7 @@ const ja = {
   footer(current?: PortfolioPage) {
     const groups: LinkGroup[] = [
       { label: "サイト", links: this.pages(current) },
-      { label: "ほかの場所", links: [x, github, { label: "ブログ", href: blogHome }] },
+      { label: "リンク", links: [x, github, { label: "ブログ", href: blogHome }] },
       {
         label: "言語",
         links: [

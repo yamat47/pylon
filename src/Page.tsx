@@ -10,9 +10,11 @@ type PageProps = {
 
 export function Page({ header, footer, width, children }: PageProps) {
   return (
-    <div className="py-page">
-      {header}
-      <main className={`py-page-main py-page-main-${width}`}>{children}</main>
+    <div className="py-frame">
+      <div className="py-frame-body">
+        {header}
+        <main className={`py-page-main py-page-main-${width}`}>{children}</main>
+      </div>
       {footer}
     </div>
   );

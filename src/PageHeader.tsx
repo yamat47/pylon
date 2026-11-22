@@ -11,9 +11,16 @@ type PageHeaderProps = {
   // Written on the date's `time`, for the site's own tools: a search index that takes the date
   // from there, or leaves it out of the text it searches.
   dateAttributes?: DataAttributes | undefined;
+  // For a page that is a list, such as the portfolio's projects: how many things it lists.
+  count?: number | undefined;
 };
 
-export function PageHeader({ title, date, dateAttributes }: PageHeaderProps) {
+export function PageHeader({ title, date, dateAttributes, count }: PageHeaderProps) {
+  const heading = (
+    <Text variant="title" as="h1">
+      {title}
+    </Text>
+  );
   return (
     <header className="py-page-header py-phrases">
       {date === undefined ? null : (
@@ -21,9 +28,14 @@ export function PageHeader({ title, date, dateAttributes }: PageHeaderProps) {
           {fullDate(date)}
         </time>
       )}
-      <Text variant="title" as="h1">
-        {title}
-      </Text>
+      {count === undefined ? (
+        heading
+      ) : (
+        <div className="py-page-header-counted">
+          {heading}
+          <span className="py-muted text-figure">{count}</span>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { footerLinks, nav } from "./fixtures.ts";
+import { footerLinks, nav, portfolio } from "./fixtures.ts";
 import readme from "./LinkList.md?raw";
 import { LinkList } from "./LinkList.tsx";
 
@@ -15,3 +15,5 @@ type Story = StoryObj<typeof meta>;
 
 export const OneLink: Story = {};
 export const SeveralLinks: Story = { args: { links: [...nav, ...footerLinks] } };
+// The pages of the portfolio in its profile column, on the projects page.
+export const Stacked: Story = { args: { links: portfolio.ja.pages("projects"), stacked: true } };

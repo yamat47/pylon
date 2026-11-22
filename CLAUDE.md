@@ -4,10 +4,10 @@ The design system of https://blog.yamat47.me/ and of my portfolio site: design t
 published to npm as `@yamat47/pylon` and to Claude Design as a design system.
 
 So far it holds the tokens, the fonts, the toolchain, the components of the blog's pages (the top page, a post, a
-page with a title and text such as the privacy policy, and the search page), the build that a release publishes,
-and the copy that Claude Design gets. The portfolio's look is chosen ("The portfolio's look" below), and its
-tokens and brand book are in; its components are not built yet. "What is decided" and "Not decided yet" below say
-where things are headed.
+page with a title and text such as the privacy policy, and the search page) and of the portfolio's (the top page,
+and the pages of projects, talks, writing, career and about, in English and Japanese), the build that a release
+publishes, and the copy that Claude Design gets. "What is decided" and "Not decided yet" below say where things are
+headed.
 
 ## Layout
 
@@ -20,7 +20,7 @@ where things are headed.
 | `src/styles.css` | The stylesheet a site loads: the fonts, the tokens and the components' styles, in that order |
 | `src/<Name>.tsx` | A component, with its guideline (`<Name>.md`) and its stories (`<Name>.stories.tsx`) beside it. `src/index.ts` exports them |
 | `src/components.css` | The one stylesheet of the components, and of the page under them (`body`, links) |
-| `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, and what is more than a string: the text of one post as its Markdown would render it, and what a search found as the site's script would list it |
+| `src/fixtures.ts`, `src/fixture-texts.tsx` | What the stories show: the blog's own names, links and posts, the portfolio's in English and Japanese, and what is more than a string: the text of one post as its Markdown would render it, and what a search found as the site's script would list it |
 | `.storybook/` | Storybook, where components are looked at: every story in light and dark, from the toolbar |
 | `scripts/` | What generates `src/tokens.css` (`tokens.ts`, `tokens-css.ts`), the contrast calculation, the test of the built package (`package.smoke.ts`), and what builds the copy for Claude Design (`project.ts`, with `preview.ts` for a component's card) |
 | `design/project/`, `design/publish.json` | The copy of the design system that Claude Design gets, and where it goes. Generated ("Rules that are easy to break") |
@@ -91,8 +91,9 @@ invokes it with `docker compose -f docker/compose.yaml run`.
   length relative to the text, with a comment saying which
 - **A story is args only.** No `render` and no decorators of its own, because a story is drawn twice: in Storybook,
   and on the component's card in the copy on Claude Design, which is written from the args and refuses anything
-  else. A story that needs other components passes them as args. Stories show Japanese text from
-  `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the sites carry. How wide a card lays its
+  else. A story that needs other components passes them as args. Stories show the sites' own text from
+  `src/fixtures.ts` and `src/fixture-texts.tsx`, because that is what the components carry: Japanese for the blog,
+  English and Japanese for the portfolio. How wide a card lays its
   stories out is the one thing a story file says for the card alone: `parameters.card.frame` on its meta
   (`scripts/preview.ts`)
 - **`design/project/` is built, committed, and published as it is.** After a change to a component, a story, a
@@ -158,9 +159,10 @@ https://claude.ai/artifact/R38L2jgQPruxcERpABEKaX
 - English is the default (`/`) and Japanese is at `/ja/`. A title stays in its author's language. English text is
   set in the `-latin` text styles, on shorter lines than Japanese needs. They are styles of their own rather than
   a line height that follows `lang`, so that `tokens.json` keeps the shape Claude Design reads and each style
-  stays one class. A component learns the page's language from a prop: the portfolio page's frame takes the
-  page's `lang` and sets its text in `text-body-latin` for English, and a component that sets `text-body` or
-  `text-lead` itself takes the language the same way
+  stays one class. A component learns the page's language from a prop: `ProfilePage`, the portfolio page's
+  frame, takes the page's `lang` and sets its text in `text-body-latin` for English, and a component that sets
+  `text-body` or `text-lead` itself takes the language the same way (`Introduction`). The others set no text style
+  of their own for their text and inherit the frame's
 - The lists differ by what leads them. Projects are a grid of screenshots. Talks open with the newest talk and its
   first slide, and list the rest by date, the year small over a large day. Writing is titles and dates only,
   grouped by year, without where each was published. Career runs each company's roles along a line, in the accent

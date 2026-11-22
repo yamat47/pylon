@@ -4,8 +4,9 @@ The design system of [blog.yamat47.me](https://blog.yamat47.me/) and of my portf
 components, published to npm as [`@yamat47/pylon`](https://www.npmjs.com/package/@yamat47/pylon).
 
 It holds the tokens ([`system/tokens.json`](system/tokens.json), and the CSS generated from them,
-[`src/tokens.css`](src/tokens.css)) and the components the blog's pages are made of ([`src/`](src/)): the top page,
-a post, a page of text and the search page, with the two fonts they are set in. What is decided so far, including
+[`src/tokens.css`](src/tokens.css)) and the components the two sites' pages are made of ([`src/`](src/)), with the
+two fonts they are set in: on the blog the top page, a post, a page of text and the search page, and on the
+portfolio the top page and the pages of projects, talks, writing, career and about, in English and Japanese. What is decided so far, including
 the look, is in [CLAUDE.md](CLAUDE.md).
 
 It is the design of two sites of mine. The package is public so that those sites can install it; it is not meant as
@@ -25,8 +26,9 @@ import { Page, PostIndex, SiteFooter, SiteHeader } from "@yamat47/pylon";
 import "@yamat47/pylon/styles.css";
 ```
 
-`styles.css` is the fonts, the tokens and the components' styles in the order they have to load. The page has to
-say it is Japanese (`lang="ja"`) for titles to break between phrases.
+`styles.css` is the fonts, the tokens and the components' styles in the order they have to load. A page of the blog
+has to say it is Japanese (`lang="ja"`) for titles to break between phrases. A page of the portfolio is framed by a
+`ProfilePage`, which takes the page's language (`lang`, `en` or `ja`) and sets English text on its shorter line.
 
 Two things are for what a site does around the components. A site's own tools, a search index for one, mark an
 element they did not write through `data-*` attributes: `linkAttributes` on a `LinkCard`, `dateAttributes` on a
